@@ -6,3 +6,95 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Role {
+  TRAINEE
+  TRAINER
+  ADMIN
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  avatar    String?  @db.VarChar(255)
+  name      String   @db.VarChar(255)
+  email     String   @unique @db.VarChar(255)
+  password  String   @db.VarChar(60)
+  role      Role     @default(TRAINEE)
+  disabled  Boolean? @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  @@index([email])
+  @@index([name])
+  @@index([role])
+  @@map("users")
+}
+
+enum TrackStatus {
+  ACTIVE
+  ARCHIVED
+  DRAFT
+}
+
+model Track {
+  id          Int           @id @default(autoincrement())
+  name        String        @db.VarChar(255)
+  slug        String        @unique @db.VarChar(255)
+  description String        @db.VarChar(1000)
+  coverUrl    String        @db.VarChar(255)
+  status      TrackStatus   @default(DRAFT)
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @default(now()) @map("updated_at")
+  modules     TrackModule[]
+
+  @@index([name])
+  @@index([slug])
+  @@index([status])
+  @@map("tracks")
+}
+
+model TrackModule {
+  trackId  Int
+  moduleId Int
+  track    Track  @relation(fields: [trackId], references: [id])
+  module   Module @relation(fields: [moduleId], references: [id])
+
+  @@id([trackId, moduleId])
+  @@index([trackId])
+  @@map("track_modules")
+}
+
+model Module {
+  id          Int           @id @default(autoincrement())
+  name        String        @db.VarChar(255)
+  slug        String        @unique @db.VarChar(255)
+  order       Int           @default(1)
+  description String        @db.VarChar(1000)
+  coverUrl    String        @db.VarChar(255)
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @default(now()) @map("updated_at")
+  lessons     Lesson[]
+  tracks      TrackModule[]
+
+  @@index([name])
+  @@index([slug])
+  @@map("modules")
+}
+
+model Lesson {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(255)
+  slug        String   @unique @db.VarChar(255)
+  order       Int      @default(1)
+  description String   @db.VarChar(1000)
+  videoUrl    String   @db.VarChar(255)
+  moduleId    Int
+  module      Module   @relation(fields: [moduleId], references: [id])
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @default(now()) @map("updated_at")
+
+  @@index([name])
+  @@index([slug])
+  @@index([moduleId])
+  @@map("lessons")
+}
