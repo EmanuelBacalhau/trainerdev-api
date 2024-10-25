@@ -4,12 +4,12 @@ import { hash } from 'bcryptjs'
 import { HttpError } from '../errors/HttpError'
 import type {
   CreateUserAttributes,
+  IUserRepository,
   Role,
   UpdateUserAttributes,
   User,
-  UserRepository,
   UserWhereInputs,
-} from '../repositories/UserRepository.interface'
+} from '../repositories/IUserRepository.interface'
 import { removeFile } from '../utils/remove-file'
 
 interface GetUsersWithPaginated {
@@ -22,7 +22,7 @@ interface GetUsersWithPaginated {
 }
 
 export class UserUseCase {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(private readonly userRepository: IUserRepository) {}
 
   index = async (params: GetUsersWithPaginated): Promise<User[]> => {
     const {

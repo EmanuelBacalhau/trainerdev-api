@@ -2,13 +2,13 @@ import { prisma } from '../../databases/prisma'
 import type {
   CreateUserAttributes,
   FindUsersParams,
+  IUserRepository,
   UpdateUserAttributes,
   User,
-  UserRepository,
   UserWhereInputs,
-} from '../UserRepository.interface'
+} from '../IUserRepository.interface'
 
-export class PrismaUserRepository implements UserRepository {
+export class PrismaUserRepository implements IUserRepository {
   find = async (params: FindUsersParams): Promise<User[]> => {
     const { where, sortBy, order, skip, take } = params
 

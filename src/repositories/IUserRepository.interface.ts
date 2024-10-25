@@ -43,7 +43,7 @@ export interface UpdateUserAttributes {
   avatar?: string
 }
 
-export interface UserRepository {
+export interface IUserRepository {
   find(params: FindUsersParams): Promise<User[]>
   findById(id: number): Promise<User | null>
   findByEmail(email: string): Promise<User | null>
