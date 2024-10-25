@@ -10,43 +10,62 @@ import type {
 } from '../repositories/UserRepository.interface'
 
 interface GetUsersWithPaginated {
-  page: number
-  perPage: number
-  name: string
-  role: Role
-  sortBy: 'name' | 'role' | 'createdAt'
-  order: 'asc' | 'desc'
+  page?: number
+  perPage?: number
+  name?: string
+  role?: Role
+  sortBy?: 'name' | 'role' | 'createdAt'
+  order?: 'asc' | 'desc'
 }
 
 export class UserUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async index(params: GetUsersWithPaginated): Promise<User[]> {
+  index = async (params: GetUsersWithPaginated): Promise<User[]> => {
+    const {
+      name,
+      role,
+      page = 1,
+      perPage = 10,
+      sortBy = 'name',
+      order = 'asc',
+    } = params
+
     const where: UserWhereInputs = {}
 
-    if (params.name) {
+    if (name) {
       where.name = {
-        contains: params.name,
+        contains: name,
         mode: 'insensitive',
       }
     }
 
-    if (params.role) {
-      where.role = params.role
+    if (role) {
+      where.role = role
     }
 
     const users = await this.userRepository.find({
       where,
-      skip: (params.page - 1) * params.perPage,
-      take: params.perPage,
-      sortBy: params.sortBy,
-      order: params.order,
+      skip: (page - 1) * perPage,
+      take: perPage,
+      sortBy: sortBy,
+      order: order,
     })
 
     return users
   }
 
-  async create(attributes: CreateUserAttributes): Promise<User> {
+  findById = async (id: number): Promise<User | null> => {
+    const user = await this.userRepository.findById(id)
+
+    if (!user) {
+      throw new HttpError('User not found', 404)
+    }
+
+    return user
+  }
+
+  create = async (attributes: CreateUserAttributes): Promise<User> => {
     const isEmailAlreadyUsed = await this.userRepository.findByEmail(
       attributes.email
     )
@@ -59,10 +78,14 @@ export class UserUseCase {
       ...attributes,
       password: await hash(attributes.password, 8),
     })
+
     return user
   }
 
-  async update(id: number, attributes: UpdateUserAttributes): Promise<User> {
+  update = async (
+    id: number,
+    attributes: UpdateUserAttributes
+  ): Promise<User> => {
     if (attributes.email) {
       const isEmailAlreadyUsed = await this.userRepository.findByEmail(
         attributes.email
@@ -91,7 +114,7 @@ export class UserUseCase {
     return user
   }
 
-  async delete(id: number): Promise<void> {
+  delete = async (id: number): Promise<void> => {
     const user = await this.userRepository.delete(id)
 
     if (!user) {
