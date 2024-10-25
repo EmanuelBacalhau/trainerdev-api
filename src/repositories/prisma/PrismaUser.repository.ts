@@ -5,10 +5,11 @@ import type {
   UpdateUserAttributes,
   User,
   UserRepository,
+  UserWhereInputs,
 } from '../UserRepository.interface'
 
 export class PrismaUserRepository implements UserRepository {
-  async find(params: FindUsersParams): Promise<User[]> {
+  find = async (params: FindUsersParams): Promise<User[]> => {
     const { where, sortBy, order, skip, take } = params
 
     return prisma.user.findMany({
@@ -28,7 +29,7 @@ export class PrismaUserRepository implements UserRepository {
     })
   }
 
-  async findById(id: number): Promise<User | null> {
+  findById = async (id: number): Promise<User | null> => {
     return prisma.user.findUnique({
       where: {
         id: id,
@@ -36,7 +37,7 @@ export class PrismaUserRepository implements UserRepository {
     })
   }
 
-  async findByEmail(email: string): Promise<User | null> {
+  findByEmail = async (email: string): Promise<User | null> => {
     return prisma.user.findUnique({
       where: {
         email: email,
@@ -44,7 +45,7 @@ export class PrismaUserRepository implements UserRepository {
     })
   }
 
-  async create(attributes: CreateUserAttributes): Promise<User> {
+  create = async (attributes: CreateUserAttributes): Promise<User> => {
     return prisma.user.create({
       data: {
         email: attributes.email,
@@ -55,10 +56,13 @@ export class PrismaUserRepository implements UserRepository {
     })
   }
 
-  async update(id: number, attributes: UpdateUserAttributes): Promise<User> {
+  update = async (
+    id: number,
+    attributes: UpdateUserAttributes
+  ): Promise<User> => {
     return prisma.user.update({
       where: {
-        id: id,
+        id,
       },
       data: {
         email: attributes.email,
@@ -70,10 +74,23 @@ export class PrismaUserRepository implements UserRepository {
     })
   }
 
-  async delete(id: number): Promise<User | null> {
+  delete = async (id: number): Promise<User | null> => {
     return prisma.user.delete({
       where: {
         id: id,
+      },
+    })
+  }
+
+  count = async (where: UserWhereInputs): Promise<number> => {
+    return prisma.user.count({
+      where: {
+        name: {
+          contains: where?.name?.contains,
+          equals: where?.name?.equals,
+          mode: where?.name?.mode,
+        },
+        role: where?.role,
       },
     })
   }

@@ -32,7 +32,7 @@ export interface CreateUserAttributes {
   name: string
   email: string
   password: string
-  role: Role
+  role?: Role
 }
 
 export interface UpdateUserAttributes {
@@ -50,4 +50,5 @@ export interface UserRepository {
   create(attributes: CreateUserAttributes): Promise<User>
   update(id: number, attributes: UpdateUserAttributes): Promise<User>
   delete(id: number): Promise<User | null>
+  count(where: UserWhereInputs): Promise<number>
 }
