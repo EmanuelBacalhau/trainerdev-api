@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: bitnami/postgresql:latest
+    container_name: trainer-dev-container
+    environment:
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=trainer-dev
+      - POSTGRESQL_DATABASE=trainer-dev
+    ports:
+      - "5432:5432"
