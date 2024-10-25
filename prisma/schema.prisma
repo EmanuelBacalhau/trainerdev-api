@@ -23,11 +23,26 @@ model User {
   disabled  Boolean? @default(false)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @map("updated_at")
+  matriculations Matriculation[]
 
   @@index([email])
   @@index([name])
   @@index([role])
   @@map("users")
+}
+
+model Matriculation {
+  userId    Int
+  trackId   Int
+  user      User     @relation(fields: [userId], references: [id])
+  track     Track    @relation(fields: [trackId], references: [id])
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  @@id([userId, trackId])
+  @@index([userId])
+  @@index([trackId])
+  @@map("matriculations")
 }
 
 enum TrackStatus {
@@ -46,6 +61,7 @@ model Track {
   createdAt   DateTime      @default(now()) @map("created_at")
   updatedAt   DateTime      @default(now()) @map("updated_at")
   modules     TrackModule[]
+  matriculations Matriculation[]
 
   @@index([name])
   @@index([slug])
