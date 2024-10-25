@@ -1,5 +1,8 @@
+import { unlinkSync } from 'node:fs'
+import { resolve } from 'node:path'
 import type { Handler } from 'express'
 import type { UserUseCase } from '../use-cases/User.use-case'
+import { removeFile } from '../utils/remove-file'
 import {
   CreateUserRequestSchema,
   FindUsersRequestSchema,
@@ -47,10 +50,18 @@ export class UserController {
     try {
       const body = UpdateUserRequestSchema.parse(request.body)
       const params = GetIdRequestSchema.parse(request.params)
-      const user = await this.userUseCase.update(params.id, body)
+      const avatar = request.file
+
+      const user = await this.userUseCase.update(params.id, {
+        ...body,
+        avatar: avatar?.filename,
+      })
 
       response.status(200).json(user)
     } catch (error) {
+      if (request.file) {
+        removeFile('users', request.file.filename)
+      }
       next(error)
     }
   }

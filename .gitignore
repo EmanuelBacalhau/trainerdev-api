@@ -4,3 +4,6 @@ build/
 
 # Files
 .env
+uploads/*/*.jpeg
+uploads/*/*.jpg
+uploads/*/*.png

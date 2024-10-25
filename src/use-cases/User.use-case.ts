@@ -1,3 +1,5 @@
+import { existsSync, unlinkSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { hash } from 'bcryptjs'
 import { HttpError } from '../errors/HttpError'
 import type {
@@ -8,6 +10,7 @@ import type {
   UserRepository,
   UserWhereInputs,
 } from '../repositories/UserRepository.interface'
+import { removeFile } from '../utils/remove-file'
 
 interface GetUsersWithPaginated {
   page?: number
@@ -86,6 +89,12 @@ export class UserUseCase {
     id: number,
     attributes: UpdateUserAttributes
   ): Promise<User> => {
+    const isUserAlreadyExists = await this.userRepository.findById(id)
+
+    if (!isUserAlreadyExists) {
+      throw new HttpError('User not found', 404)
+    }
+
     if (attributes.email) {
       const isEmailAlreadyUsed = await this.userRepository.findByEmail(
         attributes.email
@@ -102,16 +111,22 @@ export class UserUseCase {
       password = await hash(attributes.password, 8)
     }
 
-    const user = await this.userRepository.update(id, {
+    const userUpdated = await this.userRepository.update(id, {
       ...attributes,
       password,
     })
 
-    if (!user) {
+    if (!userUpdated) {
       throw new HttpError('User not found', 404)
     }
 
-    return user
+    if (attributes.avatar) {
+      if (isUserAlreadyExists.avatar) {
+        removeFile('users', isUserAlreadyExists.avatar)
+      }
+    }
+
+    return userUpdated
   }
 
   delete = async (id: number): Promise<void> => {
@@ -119,6 +134,10 @@ export class UserUseCase {
 
     if (!user) {
       throw new HttpError('User not found', 404)
+    }
+
+    if (user.avatar) {
+      removeFile('users', user.avatar)
     }
   }
 }
