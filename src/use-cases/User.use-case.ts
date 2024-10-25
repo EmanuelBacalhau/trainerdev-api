@@ -130,11 +130,13 @@ export class UserUseCase {
   }
 
   delete = async (id: number): Promise<void> => {
-    const user = await this.userRepository.delete(id)
+    const user = await this.userRepository.findById(id)
 
     if (!user) {
       throw new HttpError('User not found', 404)
     }
+
+    await this.userRepository.delete(id)
 
     if (user.avatar) {
       removeFile('users', user.avatar)

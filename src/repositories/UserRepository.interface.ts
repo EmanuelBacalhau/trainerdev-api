@@ -49,6 +49,6 @@ export interface UserRepository {
   findByEmail(email: string): Promise<User | null>
   create(attributes: CreateUserAttributes): Promise<User>
   update(id: number, attributes: UpdateUserAttributes): Promise<User>
-  delete(id: number): Promise<User | null>
+  delete(id: number): Promise<void>
   count(where: UserWhereInputs): Promise<number>
 }
