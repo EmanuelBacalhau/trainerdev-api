@@ -16,9 +16,9 @@ export class UserController {
   index: Handler = async (request, response, next) => {
     try {
       const query = FindUsersRequestSchema.parse(request.query)
-      const users = await this.userUseCase.index(query)
+      const { users, meta } = await this.userUseCase.index(query)
 
-      response.status(200).json(users)
+      response.status(200).json({ users, meta })
     } catch (error) {
       next(error)
     }

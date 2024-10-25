@@ -21,10 +21,20 @@ interface GetUsersWithPaginated {
   order?: 'asc' | 'desc'
 }
 
+interface FindResponse {
+  users: User[]
+  meta: {
+    total: number
+    totalPages: number
+    page: number
+    perPage: number
+  }
+}
+
 export class UserUseCase {
   constructor(private readonly userRepository: IUserRepository) {}
 
-  index = async (params: GetUsersWithPaginated): Promise<User[]> => {
+  index = async (params: GetUsersWithPaginated): Promise<FindResponse> => {
     const {
       name,
       role,
@@ -55,7 +65,18 @@ export class UserUseCase {
       order: order,
     })
 
-    return users
+    const total = await this.userRepository.count(where)
+    const totalPages = Math.ceil(total / perPage)
+
+    return {
+      users,
+      meta: {
+        total,
+        totalPages,
+        page,
+        perPage,
+      },
+    }
   }
 
   findById = async (id: number): Promise<User | null> => {
