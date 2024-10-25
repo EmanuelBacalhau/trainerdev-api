@@ -9,7 +9,7 @@ import type {
 	UserWhereInputs,
 } from '../repositories/UserRepository.interface'
 
-interface GetUserWithPaginated {
+interface GetUsersWithPaginated {
 	page: number
 	perPage: number
 	name: string
@@ -21,7 +21,7 @@ interface GetUserWithPaginated {
 export class UserUseCase {
 	constructor(private readonly userRepository: UserRepository) {}
 
-	async index(params: GetUserWithPaginated): Promise<User[]> {
+	async index(params: GetUsersWithPaginated): Promise<User[]> {
 		const where: UserWhereInputs = {}
 
 		if (params.name) {
