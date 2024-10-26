@@ -6,7 +6,7 @@ import { removeFile } from '../utils/remove-file'
 import {
   CreateUserRequestSchema,
   FindUsersRequestSchema,
-  GetIdRequestSchema,
+  GetUserIdRequestSchema,
   UpdateUserRequestSchema,
 } from './schemas/UserRequestSchema'
 
@@ -26,7 +26,7 @@ export class UserController {
 
   findById: Handler = async (request, response, next) => {
     try {
-      const params = GetIdRequestSchema.parse(request.params)
+      const params = GetUserIdRequestSchema.parse(request.params)
       const user = await this.userUseCase.findById(params.id)
 
       response.status(200).json(user)
@@ -49,7 +49,7 @@ export class UserController {
   update: Handler = async (request, response, next) => {
     try {
       const body = UpdateUserRequestSchema.parse(request.body)
-      const params = GetIdRequestSchema.parse(request.params)
+      const params = GetUserIdRequestSchema.parse(request.params)
       const avatar = request.file
 
       const user = await this.userUseCase.update(params.id, {
@@ -68,7 +68,7 @@ export class UserController {
 
   delete: Handler = async (request, response, next) => {
     try {
-      const params = GetIdRequestSchema.parse(request.params)
+      const params = GetUserIdRequestSchema.parse(request.params)
       await this.userUseCase.delete(params.id)
 
       response.status(204).send()

@@ -18,7 +18,7 @@ export const CreateUserRequestSchema = z.object({
   password: z.string().min(8),
 })
 
-export const GetIdRequestSchema = z.object({
+export const GetUserIdRequestSchema = z.object({
   id: z.coerce.number().int().positive(),
 })
 
