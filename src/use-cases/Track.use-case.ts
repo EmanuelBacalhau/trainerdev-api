@@ -141,11 +141,7 @@ export class TrackUseCase {
       }
     }
 
-    let slug: string | undefined
-
-    if (attributes.name) {
-      slug = attributes.name.toLowerCase().replace(' ', '-')
-    }
+    const slug = attributes.name?.toLowerCase().replace(' ', '-')
 
     if (attributes.coverUrl) {
       removeFile('tracks', track.coverUrl)

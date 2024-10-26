@@ -7,8 +7,8 @@ export const FindTracksRequestSchema = z.object({
   status: TrackStatusSchema.optional(),
   sortBy: z.enum(['name', 'status', 'createdAt']).optional(),
   order: z.enum(['asc', 'desc']).optional(),
-  page: z.number().int().positive().optional(),
-  perPage: z.number().int().positive().optional(),
+  page: z.coerce.number().int().positive().optional(),
+  perPage: z.coerce.number().int().positive().optional(),
 })
 
 export const CreateTrackRequestSchema = z.object({
