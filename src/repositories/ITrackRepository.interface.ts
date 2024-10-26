@@ -1,0 +1,54 @@
+export type TrackStatus = 'ACTIVE' | 'ARCHIVED' | 'DRAFT'
+
+export interface Track {
+  id: number
+  name: string
+  description: string
+  slug: string
+  coverUrl: string
+  status: TrackStatus
+  createdAt: Date
+  updatedAt: Date
+}
+
+export interface TrackWhereInputs {
+  name?: {
+    contains?: string
+    equals?: string
+    mode?: 'insensitive' | 'default'
+  }
+  status?: TrackStatus
+}
+
+export interface FindTracksParams {
+  where?: TrackWhereInputs
+  sortBy?: 'name' | 'status' | 'createdAt'
+  order?: 'asc' | 'desc'
+  skip?: number
+  take?: number
+}
+
+export interface CreateTrackAttributes {
+  name: string
+  description: string
+  slug: string
+  coverUrl: string
+}
+
+export interface UpdateTrackAttributes {
+  name?: string
+  slug?: string
+  description?: string
+  coverUrl?: string
+  status?: TrackStatus
+}
+
+export interface ITrackRepository {
+  find(params: FindTracksParams): Promise<Track[]>
+  findById(id: number): Promise<Track | null>
+  findBySlug(slug: string): Promise<Track | null>
+  create(attributes: CreateTrackAttributes): Promise<Track>
+  update(id: number, attributes: UpdateTrackAttributes): Promise<Track>
+  delete(id: number): Promise<void>
+  count(where: TrackWhereInputs): Promise<number>
+}
