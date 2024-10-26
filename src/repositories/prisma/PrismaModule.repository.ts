@@ -79,7 +79,7 @@ export class PrismaModuleRepository implements IModuleRepository {
     })
   }
 
-  count(where: ModuleWhereInputs): Promise<number> {
+  count = async (where: ModuleWhereInputs): Promise<number> => {
     return prisma.module.count({
       where,
     })
