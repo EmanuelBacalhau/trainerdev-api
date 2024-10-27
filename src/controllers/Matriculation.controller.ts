@@ -24,8 +24,6 @@ export class MatriculationController {
 
   create: Handler = async (request, response, next) => {
     try {
-      console.log('request.body', request.body)
-
       const body = CreateMatriculationRequestSchema.parse(request.body)
       const matriculation = await this.matriculationUseCase.create(body)
 

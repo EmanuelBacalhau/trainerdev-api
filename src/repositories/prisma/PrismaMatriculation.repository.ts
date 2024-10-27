@@ -87,14 +87,13 @@ export class PrismaMatriculationRepository implements IMatriculationRepository {
         id,
       },
       data: {
-        userId: attributes.userId,
         trackId: attributes.trackId,
       },
     })
   }
 
   delete = async (id: number): Promise<void> => {
-    prisma.matriculation.delete({
+    await prisma.matriculation.delete({
       where: {
         id,
       },

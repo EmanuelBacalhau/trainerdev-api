@@ -19,7 +19,6 @@ export const CreateMatriculationRequestSchema = z.object({
 })
 
 export const UpdateMatriculationRequestSchema = z.object({
-  userId: z.number(),
-  trackId: z.number(),
-  status: z.enum(['ACTIVE', 'INACTIVE']),
+  trackId: z.number().optional(),
+  status: z.enum(['ACTIVE', 'INACTIVE']).optional(),
 })

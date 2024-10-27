@@ -33,7 +33,6 @@ export interface CreateMatriculationAttributes {
 }
 
 export interface UpdateMatriculationAttributes {
-  userId?: number
   trackId?: number
   status?: MatriculationStatus
 }

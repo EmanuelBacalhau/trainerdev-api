@@ -125,14 +125,6 @@ export class MatriculationUseCase {
       throw new HttpError('Matriculation not found', 404)
     }
 
-    if (attributes.userId) {
-      const isUserExists = await this.userRepository.findById(attributes.userId)
-
-      if (!isUserExists) {
-        throw new HttpError('User not found', 404)
-      }
-    }
-
     if (attributes.trackId) {
       const isTrackExists = await this.trackRepository.findById(
         attributes.trackId
