@@ -199,4 +199,23 @@ export class TrackUseCase {
 
     await this.trackRepository.delete(id)
   }
+
+  removeModuleFromTrack = async (
+    trackId: number,
+    moduleId: number
+  ): Promise<void> => {
+    const isTrackExist = await this.trackRepository.findById(trackId)
+
+    if (!isTrackExist) {
+      throw new HttpError('Track not found', 404)
+    }
+
+    const isModuleExist = await this.moduleRepository.findById(moduleId)
+
+    if (!isModuleExist) {
+      throw new HttpError('Module not found', 404)
+    }
+
+    await this.trackRepository.removeModuleFromTrack(trackId, moduleId)
+  }
 }
