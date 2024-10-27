@@ -21,8 +21,8 @@ const lessonRepository = new PrismaLessonRepository()
 const matriculationRepository = new PrismaMatriculationRepository()
 
 const userUseCase = new UserUseCase(userRepository)
-const trackUseCase = new TrackUseCase(trackRepository)
 const moduleUseCase = new ModuleUseCase(moduleRepository)
+const trackUseCase = new TrackUseCase(trackRepository, moduleRepository)
 const lessonUseCase = new LessonUseCase(lessonRepository)
 const matriculationUseCase = new MatriculationUseCase(
   matriculationRepository,

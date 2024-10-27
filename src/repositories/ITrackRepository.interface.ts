@@ -33,6 +33,7 @@ export interface CreateTrackAttributes {
   description: string
   slug: string
   coverUrl: string
+  moduleIds: number[]
 }
 
 export interface UpdateTrackAttributes {

@@ -14,6 +14,7 @@ export const FindTracksRequestSchema = z.object({
 export const CreateTrackRequestSchema = z.object({
   name: z.string(),
   description: z.string(),
+  moduleIds: z.array(z.coerce.number().int().positive()),
 })
 
 export const GetTrackByIdRequestSchema = z.object({

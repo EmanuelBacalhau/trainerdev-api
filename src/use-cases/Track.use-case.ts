@@ -1,5 +1,6 @@
 import type { TrackStatus } from '@prisma/client'
 import { HttpError } from '../errors/HttpError'
+import type { IModuleRepository } from '../repositories/IModuleRepository.interface'
 import type {
   ITrackRepository,
   Track,
@@ -16,10 +17,11 @@ interface GetTracksWithPaginated {
   order?: 'asc' | 'desc'
 }
 
-interface CreateTrackAttributes {
+interface CreateTrackAttributesUseCase {
   name: string
   description: string
   coverUrl: string
+  moduleIds: number[]
 }
 
 interface UpdateTrackAttributes {
@@ -48,7 +50,10 @@ type FindTrackByIdUseCaseResponse = Track & {
 }
 
 export class TrackUseCase {
-  constructor(private readonly trackRepository: ITrackRepository) {}
+  constructor(
+    private readonly trackRepository: ITrackRepository,
+    private readonly moduleRepository: IModuleRepository
+  ) {}
 
   index = async (params: GetTracksWithPaginated): Promise<FindResponse> => {
     const {
@@ -115,13 +120,21 @@ export class TrackUseCase {
     return track
   }
 
-  create = async (attributes: CreateTrackAttributes): Promise<Track> => {
+  create = async (attributes: CreateTrackAttributesUseCase): Promise<Track> => {
     const slug = attributes.name.toLowerCase().replace(' ', '-')
 
     const isTrackExist = await this.trackRepository.findBySlug(slug)
 
     if (isTrackExist) {
       throw new HttpError('Track already exist', 400)
+    }
+
+    for (const moduleId of attributes.moduleIds) {
+      const isModuleExist = await this.moduleRepository.findById(moduleId)
+
+      if (!isModuleExist) {
+        throw new HttpError('Module not found', 404)
+      }
     }
 
     return this.trackRepository.create({

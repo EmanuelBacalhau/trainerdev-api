@@ -56,8 +56,7 @@ export class TrackController {
       const coverUrl = request.file.filename
 
       const track = await this.trackUseCase.create({
-        name: body.name,
-        description: body.description,
+        ...body,
         coverUrl,
       })
 

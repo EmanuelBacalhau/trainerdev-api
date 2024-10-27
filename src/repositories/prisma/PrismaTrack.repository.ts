@@ -56,7 +56,15 @@ export class PrismaTrackRepository implements ITrackRepository {
 
   create = async (attributes: CreateTrackAttributes): Promise<Track> => {
     return prisma.track.create({
-      data: attributes,
+      data: {
+        name: attributes.name,
+        description: attributes.description,
+        coverUrl: attributes.coverUrl,
+        slug: attributes.slug,
+        modules: {
+          connect: attributes.moduleIds.map(id => ({ id: id })),
+        },
+      },
     })
   }
 
