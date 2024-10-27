@@ -97,6 +97,24 @@ export class PrismaTrackRepository implements ITrackRepository {
     })
   }
 
+  removeModuleFromTrack = async (
+    trackId: number,
+    moduleId: number
+  ): Promise<void> => {
+    await prisma.track.update({
+      where: {
+        id: trackId,
+      },
+      data: {
+        modules: {
+          disconnect: {
+            id: moduleId,
+          },
+        },
+      },
+    })
+  }
+
   count = async (where: TrackWhereInputs): Promise<number> => {
     return prisma.track.count({
       where: where,
