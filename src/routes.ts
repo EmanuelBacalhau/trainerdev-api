@@ -1,6 +1,11 @@
 import { Router } from 'express'
 import multer from 'multer'
-import { moduleController, trackController, userController } from './container'
+import {
+  lessonController,
+  moduleController,
+  trackController,
+  userController,
+} from './container'
 import { upload } from './libs/multer'
 
 export const router = Router()
@@ -15,6 +20,10 @@ const trackMulterConfig = multer({
 
 const moduleMulterConfig = multer({
   storage: upload('modules', ['image/jpeg', 'image/png']),
+})
+
+const lessonMulterConfig = multer({
+  storage: upload('lessons', ['video/mp4']),
 })
 
 // USERS
@@ -59,3 +68,19 @@ router.put(
   moduleController.update
 )
 router.delete('/modules/:id', moduleController.delete)
+
+// LESSONS
+router.get('/lessons', lessonController.index)
+router.get('/lessons/:id', lessonController.findById)
+router.get('/lessons/slug/:slug', lessonController.findBySlug)
+router.post(
+  '/lessons',
+  lessonMulterConfig.single('video'),
+  lessonController.create
+)
+router.put(
+  '/lessons/:id',
+  lessonMulterConfig.single('video'),
+  lessonController.update
+)
+router.delete('/lessons/:id', lessonController.delete)
