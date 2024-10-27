@@ -14,16 +14,16 @@ enum Role {
 }
 
 model User {
-  id             Int             @id @default(autoincrement())
-  avatar         String?         @db.VarChar(255)
-  name           String          @db.VarChar(255)
-  email          String          @unique @db.VarChar(255)
-  password       String          @db.VarChar(60)
-  role           Role            @default(TRAINEE)
-  disabled       Boolean?        @default(false)
-  createdAt      DateTime        @default(now()) @map("created_at")
-  updatedAt      DateTime        @default(now()) @map("updated_at")
-  matriculations Matriculation[]
+  id             Int            @id @default(autoincrement())
+  avatar         String?        @db.VarChar(255)
+  name           String         @db.VarChar(255)
+  email          String         @unique @db.VarChar(255)
+  password       String         @db.VarChar(60)
+  role           Role           @default(TRAINEE)
+  disabled       Boolean?       @default(false)
+  createdAt      DateTime       @default(now()) @map("created_at")
+  updatedAt      DateTime       @default(now()) @map("updated_at")
+  matriculations Matriculation?
 
   @@index([email])
   @@index([name])
@@ -37,15 +37,16 @@ enum MatriculationStatus {
 }
 
 model Matriculation {
-  userId    Int
-  trackId   Int
-  user      User                @relation(fields: [userId], references: [id])
-  track     Track               @relation(fields: [trackId], references: [id])
-  status    MatriculationStatus @default(ACTIVE)
-  createdAt DateTime            @default(now()) @map("created_at")
-  updatedAt DateTime            @default(now()) @map("updated_at")
+  id         Int                 @id @default(autoincrement())
+  serialCode String              @unique @db.VarChar(20)
+  userId     Int                 @unique
+  trackId    Int
+  user       User                @relation(fields: [userId], references: [id])
+  track      Track               @relation(fields: [trackId], references: [id])
+  status     MatriculationStatus @default(ACTIVE)
+  createdAt  DateTime            @default(now()) @map("created_at")
+  updatedAt  DateTime            @default(now()) @map("updated_at")
 
-  @@id([userId, trackId])
   @@index([userId])
   @@index([trackId])
   @@map("matriculations")
