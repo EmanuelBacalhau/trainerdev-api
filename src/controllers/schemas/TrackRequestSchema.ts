@@ -29,4 +29,5 @@ export const UpdateTrackRequestSchema = z.object({
   name: z.string().optional(),
   description: z.string().optional(),
   status: TrackStatusSchema.optional(),
+  moduleIds: z.array(z.coerce.number().int().positive()).optional(),
 })

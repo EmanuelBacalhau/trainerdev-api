@@ -76,7 +76,16 @@ export class PrismaTrackRepository implements ITrackRepository {
       where: {
         id: id,
       },
-      data: attributes,
+      data: {
+        name: attributes.name,
+        description: attributes.description,
+        coverUrl: attributes.coverUrl,
+        slug: attributes.slug,
+        status: attributes.status,
+        modules: {
+          connect: attributes.moduleIds?.map(id => ({ id: id })),
+        },
+      },
     })
   }
 

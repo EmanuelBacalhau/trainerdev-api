@@ -29,6 +29,7 @@ interface UpdateTrackAttributes {
   description?: string
   coverUrl?: string
   status?: TrackStatus
+  moduleIds?: number[]
 }
 
 interface FindResponse {
@@ -148,6 +149,7 @@ export class TrackUseCase {
     attributes: UpdateTrackAttributes
   ): Promise<Track> => {
     const track = await this.trackRepository.findById(id)
+    console.log('attributes', attributes)
 
     if (!track) {
       throw new HttpError('Track not found', 404)
@@ -166,6 +168,16 @@ export class TrackUseCase {
 
     if (attributes.coverUrl) {
       removeFile('tracks', track.coverUrl)
+    }
+
+    if (attributes.moduleIds) {
+      for (const moduleId of attributes.moduleIds) {
+        const isModuleExist = await this.moduleRepository.findById(moduleId)
+
+        if (!isModuleExist) {
+          throw new HttpError('Module not found', 404)
+        }
+      }
     }
 
     const updatedTrack = await this.trackRepository.update(id, {

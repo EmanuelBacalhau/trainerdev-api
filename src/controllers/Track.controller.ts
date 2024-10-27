@@ -82,9 +82,7 @@ export class TrackController {
       }
 
       const track = await this.trackUseCase.update(id, {
-        name: body.name,
-        description: body.description,
-        status: body.status,
+        ...body,
         coverUrl,
       })
 

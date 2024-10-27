@@ -42,6 +42,7 @@ export interface UpdateTrackAttributes {
   description?: string
   coverUrl?: string
   status?: TrackStatus
+  moduleIds?: number[]
 }
 
 export type FindTrackByIdResponse = Track & {
