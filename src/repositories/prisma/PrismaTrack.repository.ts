@@ -11,7 +11,7 @@ import type {
 
 export class PrismaTrackRepository implements ITrackRepository {
   find = async (params: FindTracksParams): Promise<Track[]> => {
-    return prisma.track.findMany({
+    return await prisma.track.findMany({
       where: params.where,
       skip: params.skip,
       take: params.take,
@@ -22,7 +22,7 @@ export class PrismaTrackRepository implements ITrackRepository {
   }
 
   findById = async (id: number): Promise<FindTrackByIdResponse | null> => {
-    return prisma.track.findUnique({
+    return await prisma.track.findUnique({
       where: {
         id: id,
       },
@@ -47,7 +47,7 @@ export class PrismaTrackRepository implements ITrackRepository {
   }
 
   findBySlug = async (slug: string): Promise<Track | null> => {
-    return prisma.track.findUnique({
+    return await prisma.track.findUnique({
       where: {
         slug: slug,
       },
@@ -55,7 +55,7 @@ export class PrismaTrackRepository implements ITrackRepository {
   }
 
   create = async (attributes: CreateTrackAttributes): Promise<Track> => {
-    return prisma.track.create({
+    return await prisma.track.create({
       data: {
         name: attributes.name,
         description: attributes.description,
@@ -72,7 +72,7 @@ export class PrismaTrackRepository implements ITrackRepository {
     id: number,
     attributes: UpdateTrackAttributes
   ): Promise<Track> => {
-    return prisma.track.update({
+    return await prisma.track.update({
       where: {
         id: id,
       },
@@ -90,7 +90,7 @@ export class PrismaTrackRepository implements ITrackRepository {
   }
 
   delete = async (id: number): Promise<void> => {
-    prisma.track.delete({
+    await prisma.track.delete({
       where: {
         id: id,
       },
@@ -116,7 +116,7 @@ export class PrismaTrackRepository implements ITrackRepository {
   }
 
   count = async (where: TrackWhereInputs): Promise<number> => {
-    return prisma.track.count({
+    return await prisma.track.count({
       where: where,
     })
   }

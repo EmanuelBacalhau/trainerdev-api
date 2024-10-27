@@ -13,7 +13,7 @@ export class PrismaMatriculationRepository implements IMatriculationRepository {
   find = async (
     params: FindMatriculationsParams
   ): Promise<FindMatriculationResponse[]> => {
-    const matriculations = await prisma.matriculation.findMany({
+    return await prisma.matriculation.findMany({
       where: {
         userId: params.where?.userId,
         trackId: params.where?.trackId,
@@ -46,12 +46,10 @@ export class PrismaMatriculationRepository implements IMatriculationRepository {
         },
       },
     })
-
-    return matriculations
   }
 
-  findById = (id: number): Promise<Matriculation | null> => {
-    return prisma.matriculation.findUnique({
+  findById = async (id: number): Promise<Matriculation | null> => {
+    return await prisma.matriculation.findUnique({
       where: {
         id,
       },
@@ -59,7 +57,7 @@ export class PrismaMatriculationRepository implements IMatriculationRepository {
   }
 
   findByUserId = async (userId: number): Promise<Matriculation | null> => {
-    return prisma.matriculation.findFirst({
+    return await prisma.matriculation.findFirst({
       where: {
         userId,
       },
@@ -69,7 +67,7 @@ export class PrismaMatriculationRepository implements IMatriculationRepository {
   create = async (
     attributes: CreateMatriculationAttributes
   ): Promise<Matriculation> => {
-    return prisma.matriculation.create({
+    return await prisma.matriculation.create({
       data: {
         userId: attributes.userId,
         trackId: attributes.trackId,
@@ -82,7 +80,7 @@ export class PrismaMatriculationRepository implements IMatriculationRepository {
     id: number,
     attributes: UpdateMatriculationAttributes
   ): Promise<Matriculation> => {
-    return prisma.matriculation.update({
+    return await prisma.matriculation.update({
       where: {
         id,
       },
@@ -101,7 +99,7 @@ export class PrismaMatriculationRepository implements IMatriculationRepository {
   }
 
   count = async (where: MatriculationWhereInputs): Promise<number> => {
-    return prisma.matriculation.count({
+    return await prisma.matriculation.count({
       where,
     })
   }

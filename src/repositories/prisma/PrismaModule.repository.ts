@@ -10,7 +10,7 @@ import type {
 
 export class PrismaModuleRepository implements IModuleRepository {
   find = async (params: FindModulesParams): Promise<Module[]> => {
-    return prisma.module.findMany({
+    return await prisma.module.findMany({
       where: {
         name: {
           contains: params.where?.name?.contains,
@@ -26,7 +26,7 @@ export class PrismaModuleRepository implements IModuleRepository {
   }
 
   findById = async (id: number): Promise<Module | null> => {
-    return prisma.module.findUnique({
+    return await prisma.module.findUnique({
       where: {
         id: id,
       },
@@ -34,7 +34,7 @@ export class PrismaModuleRepository implements IModuleRepository {
   }
 
   findBySlug = async (slug: string): Promise<Module | null> => {
-    return prisma.module.findUnique({
+    return await prisma.module.findUnique({
       where: {
         slug: slug,
       },
@@ -42,7 +42,7 @@ export class PrismaModuleRepository implements IModuleRepository {
   }
 
   create = async (attributes: CreateModuleAttributes): Promise<Module> => {
-    return prisma.module.create({
+    return await prisma.module.create({
       data: {
         name: attributes.name,
         slug: attributes.slug,
@@ -57,7 +57,7 @@ export class PrismaModuleRepository implements IModuleRepository {
     id: number,
     attributes: UpdateModuleAttributes
   ): Promise<Module> => {
-    return prisma.module.update({
+    return await prisma.module.update({
       where: {
         id: id,
       },
@@ -72,7 +72,7 @@ export class PrismaModuleRepository implements IModuleRepository {
   }
 
   delete = async (id: number): Promise<void> => {
-    prisma.module.delete({
+    await prisma.module.delete({
       where: {
         id: id,
       },
@@ -80,7 +80,7 @@ export class PrismaModuleRepository implements IModuleRepository {
   }
 
   count = async (where: ModuleWhereInputs): Promise<number> => {
-    return prisma.module.count({
+    return await prisma.module.count({
       where,
     })
   }

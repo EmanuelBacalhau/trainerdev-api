@@ -11,7 +11,7 @@ import type {
 
 export class PrismaLessonRepository implements ILessonRepository {
   find = async (params: FindLessonsParams): Promise<Lesson[]> => {
-    return prisma.lesson.findMany({
+    return await prisma.lesson.findMany({
       where: params.where,
       orderBy: {
         [params.sortBy ?? 'name']: params.order,
@@ -22,19 +22,19 @@ export class PrismaLessonRepository implements ILessonRepository {
   }
 
   findById = async (id: number): Promise<Lesson | null> => {
-    return prisma.lesson.findUnique({
+    return await prisma.lesson.findUnique({
       where: { id },
     })
   }
 
   findBySlug = async (slug: string): Promise<Lesson | null> => {
-    return prisma.lesson.findUnique({
+    return await prisma.lesson.findUnique({
       where: { slug },
     })
   }
 
   create = async (attributes: CreateLessonAttributes): Promise<Lesson> => {
-    return prisma.lesson.create({
+    return await prisma.lesson.create({
       data: attributes,
     })
   }
@@ -43,20 +43,20 @@ export class PrismaLessonRepository implements ILessonRepository {
     id: number,
     attributes: UpdateLessonAttributes
   ): Promise<Lesson> => {
-    return prisma.lesson.update({
+    return await prisma.lesson.update({
       where: { id },
       data: attributes,
     })
   }
 
   delete = async (id: number): Promise<void> => {
-    await prisma.lesson.delete({
+    await await prisma.lesson.delete({
       where: { id },
     })
   }
 
   count = async (where: LessonWhereInputs): Promise<number> => {
-    return prisma.lesson.count({
+    return await prisma.lesson.count({
       where,
     })
   }

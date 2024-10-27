@@ -12,7 +12,7 @@ export class PrismaUserRepository implements IUserRepository {
   find = async (params: FindUsersParams): Promise<User[]> => {
     const { where, sortBy, order, skip, take } = params
 
-    return prisma.user.findMany({
+    return await prisma.user.findMany({
       where: {
         name: {
           contains: where?.name?.contains,
@@ -30,7 +30,7 @@ export class PrismaUserRepository implements IUserRepository {
   }
 
   findById = async (id: number): Promise<User | null> => {
-    return prisma.user.findUnique({
+    return await prisma.user.findUnique({
       where: {
         id: id,
       },
@@ -38,7 +38,7 @@ export class PrismaUserRepository implements IUserRepository {
   }
 
   findByEmail = async (email: string): Promise<User | null> => {
-    return prisma.user.findUnique({
+    return await prisma.user.findUnique({
       where: {
         email: email,
       },
@@ -46,7 +46,7 @@ export class PrismaUserRepository implements IUserRepository {
   }
 
   create = async (attributes: CreateUserAttributes): Promise<User> => {
-    return prisma.user.create({
+    return await prisma.user.create({
       data: {
         email: attributes.email,
         name: attributes.name,
@@ -60,7 +60,7 @@ export class PrismaUserRepository implements IUserRepository {
     id: number,
     attributes: UpdateUserAttributes
   ): Promise<User> => {
-    return prisma.user.update({
+    return await prisma.user.update({
       where: {
         id,
       },
@@ -75,7 +75,7 @@ export class PrismaUserRepository implements IUserRepository {
   }
 
   delete = async (id: number): Promise<void> => {
-    prisma.user.delete({
+    await prisma.user.delete({
       where: {
         id: id,
       },
@@ -83,7 +83,7 @@ export class PrismaUserRepository implements IUserRepository {
   }
 
   count = async (where: UserWhereInputs): Promise<number> => {
-    return prisma.user.count({
+    return await prisma.user.count({
       where: {
         name: {
           contains: where?.name?.contains,
