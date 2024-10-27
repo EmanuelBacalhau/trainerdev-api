@@ -98,7 +98,7 @@ export class ModuleUseCase {
     const isNameAlreadyUsed = await this.moduleRepository.findBySlug(slug)
 
     if (isNameAlreadyUsed) {
-      throw new HttpError('Module name already used', 400)
+      throw new HttpError('Module name already used', 409)
     }
 
     return await this.moduleRepository.create({
@@ -119,7 +119,7 @@ export class ModuleUseCase {
       const isNameAlreadyUsed = await this.moduleRepository.findBySlug(slug)
 
       if (isNameAlreadyUsed) {
-        throw new HttpError('Module name already used', 400)
+        throw new HttpError('Module name already used', 409)
       }
     }
 

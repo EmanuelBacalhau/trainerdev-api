@@ -127,7 +127,7 @@ export class TrackUseCase {
     const isTrackExist = await this.trackRepository.findBySlug(slug)
 
     if (isTrackExist) {
-      throw new HttpError('Track already exist', 400)
+      throw new HttpError('Track already exist', 409)
     }
 
     for (const moduleId of attributes.moduleIds) {
@@ -160,7 +160,7 @@ export class TrackUseCase {
       const isTrackExist = await this.trackRepository.findBySlug(slug)
 
       if (isTrackExist) {
-        throw new HttpError('Track already exist', 400)
+        throw new HttpError('Track already exist', 409)
       }
     }
 

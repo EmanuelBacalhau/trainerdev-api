@@ -97,7 +97,7 @@ export class MatriculationUseCase {
       await this.matriculationRepository.findByUserId(attributes.userId)
 
     if (isMatriculationExists) {
-      throw new HttpError('User already matriculated', 400)
+      throw new HttpError('User already matriculated', 409)
     }
 
     const prefix = dayjs().format('YYMM')
