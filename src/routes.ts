@@ -2,6 +2,7 @@ import { Router } from 'express'
 import multer from 'multer'
 import {
   lessonController,
+  matriculationController,
   moduleController,
   trackController,
   userController,
@@ -84,3 +85,9 @@ router.put(
   lessonController.update
 )
 router.delete('/lessons/:id', lessonController.delete)
+
+// MATRICULATIONS
+router.get('/matriculations', matriculationController.index)
+router.post('/matriculations', matriculationController.create)
+router.put('/matriculations/:id', matriculationController.update)
+router.delete('/matriculations/:id', matriculationController.delete)
