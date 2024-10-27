@@ -21,6 +21,10 @@ export const GetTrackByIdRequestSchema = z.object({
   id: z.coerce.number().int().positive(),
 })
 
+export const GetModuleIdInTrackRequestSchema = z.object({
+  moduleId: z.coerce.number().int().positive(),
+})
+
 export const GetTrackBySlugRequestSchema = z.object({
   slug: z.string(),
 })

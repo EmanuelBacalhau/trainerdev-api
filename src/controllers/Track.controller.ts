@@ -4,6 +4,7 @@ import type { TrackUseCase } from '../use-cases/Track.use-case'
 import { removeFile } from '../utils/remove-file'
 import {
   CreateTrackRequestSchema,
+  GetModuleIdInTrackRequestSchema,
   GetTrackByIdRequestSchema,
   GetTrackBySlugRequestSchema,
   UpdateTrackRequestSchema,
@@ -101,6 +102,19 @@ export class TrackController {
       await this.trackUseCase.delete(id)
 
       response.status(204).end()
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  removeModuleFromTrack: Handler = async (request, response, next) => {
+    try {
+      const { moduleId } = GetModuleIdInTrackRequestSchema.parse(request.params)
+      const { id: trackId } = GetTrackByIdRequestSchema.parse(request.params)
+
+      await this.trackUseCase.removeModuleFromTrack(trackId, moduleId)
+
+      response.sendStatus(204)
     } catch (error) {
       next(error)
     }
