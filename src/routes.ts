@@ -91,3 +91,9 @@ router.get('/matriculations', matriculationController.index)
 router.post('/matriculations', matriculationController.create)
 router.put('/matriculations/:id', matriculationController.update)
 router.delete('/matriculations/:id', matriculationController.delete)
+
+// TRACK_MODULES
+router.delete(
+  '/tracks/:id/modules/:moduleId',
+  trackController.removeModuleFromTrack
+)
