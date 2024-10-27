@@ -43,9 +43,17 @@ export interface UpdateTrackAttributes {
   status?: TrackStatus
 }
 
+export type FindTrackByIdResponse = Track & {
+  modules: {
+    id: number
+    name: string
+    coverUrl: string
+  }[]
+}
+
 export interface ITrackRepository {
   find(params: FindTracksParams): Promise<Track[]>
-  findById(id: number): Promise<Track | null>
+  findById(id: number): Promise<FindTrackByIdResponse | null>
   findBySlug(slug: string): Promise<Track | null>
   create(attributes: CreateTrackAttributes): Promise<Track>
   update(id: number, attributes: UpdateTrackAttributes): Promise<Track>

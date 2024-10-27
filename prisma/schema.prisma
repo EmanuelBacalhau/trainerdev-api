@@ -67,7 +67,7 @@ model Track {
   status         TrackStatus     @default(DRAFT)
   createdAt      DateTime        @default(now()) @map("created_at")
   updatedAt      DateTime        @default(now()) @map("updated_at")
-  modules        TrackModule[]
+  modules        Module[]        @relation("track_modules")
   matriculations Matriculation[]
 
   @@index([name])
@@ -76,28 +76,17 @@ model Track {
   @@map("tracks")
 }
 
-model TrackModule {
-  trackId  Int
-  moduleId Int
-  track    Track  @relation(fields: [trackId], references: [id])
-  module   Module @relation(fields: [moduleId], references: [id])
-
-  @@id([trackId, moduleId])
-  @@index([trackId])
-  @@map("track_modules")
-}
-
 model Module {
-  id          Int           @id @default(autoincrement())
-  name        String        @db.VarChar(255)
-  slug        String        @unique @db.VarChar(255)
-  order       Int           @default(1)
-  description String        @db.VarChar(1000)
-  coverUrl    String        @db.VarChar(255)
-  createdAt   DateTime      @default(now()) @map("created_at")
-  updatedAt   DateTime      @default(now()) @map("updated_at")
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(255)
+  slug        String   @unique @db.VarChar(255)
+  order       Int      @default(1)
+  description String   @db.VarChar(1000)
+  coverUrl    String   @db.VarChar(255)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @default(now()) @map("updated_at")
   lessons     Lesson[]
-  tracks      TrackModule[]
+  tracks      Track[]  @relation("track_modules")
 
   @@index([name])
   @@index([slug])

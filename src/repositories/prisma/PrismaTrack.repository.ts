@@ -1,6 +1,7 @@
 import { prisma } from '../../databases/prisma'
 import type {
   CreateTrackAttributes,
+  FindTrackByIdResponse,
   FindTracksParams,
   ITrackRepository,
   Track,
@@ -20,10 +21,27 @@ export class PrismaTrackRepository implements ITrackRepository {
     })
   }
 
-  findById = async (id: number): Promise<Track | null> => {
+  findById = async (id: number): Promise<FindTrackByIdResponse | null> => {
     return prisma.track.findUnique({
       where: {
         id: id,
+      },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        coverUrl: true,
+        description: true,
+        createdAt: true,
+        updatedAt: true,
+        status: true,
+        modules: {
+          select: {
+            id: true,
+            name: true,
+            coverUrl: true,
+          },
+        },
       },
     })
   }

@@ -39,6 +39,14 @@ interface FindResponse {
   }
 }
 
+type FindTrackByIdUseCaseResponse = Track & {
+  modules: {
+    id: number
+    name: string
+    coverUrl: string
+  }[]
+}
+
 export class TrackUseCase {
   constructor(private readonly trackRepository: ITrackRepository) {}
 
@@ -87,7 +95,7 @@ export class TrackUseCase {
     }
   }
 
-  findById = async (id: number): Promise<Track> => {
+  findById = async (id: number): Promise<FindTrackByIdUseCaseResponse> => {
     const track = await this.trackRepository.findById(id)
 
     if (!track) {
