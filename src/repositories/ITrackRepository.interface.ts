@@ -60,5 +60,6 @@ export interface ITrackRepository {
   create(attributes: CreateTrackAttributes): Promise<Track>
   update(id: number, attributes: UpdateTrackAttributes): Promise<Track>
   delete(id: number): Promise<void>
+  removeModuleFromTrack(trackId: number, moduleId: number): Promise<void>
   count(where: TrackWhereInputs): Promise<number>
 }
