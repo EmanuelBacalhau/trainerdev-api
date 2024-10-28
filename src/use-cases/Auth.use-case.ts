@@ -25,10 +25,16 @@ export class AuthUseCase {
       throw new HttpError('Email/Password invalid', 401)
     }
 
-    const token = sign({}, env.JWT_SECRET, {
-      expiresIn: '1d',
-      subject: user.id.toString(),
-    })
+    const token = sign(
+      {
+        role: user.role,
+      },
+      env.JWT_SECRET,
+      {
+        expiresIn: '1d',
+        subject: user.id.toString(),
+      }
+    )
 
     return token
   }
