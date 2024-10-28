@@ -1,6 +1,7 @@
 import { prisma } from '../../databases/prisma'
 import type {
   CreateModuleAttributes,
+  FindModuleByIdOrSlugResponse,
   FindModulesParams,
   IModuleRepository,
   Module,
@@ -25,18 +26,40 @@ export class PrismaModuleRepository implements IModuleRepository {
     })
   }
 
-  findById = async (id: number): Promise<Module | null> => {
+  findById = async (
+    id: number
+  ): Promise<FindModuleByIdOrSlugResponse | null> => {
     return await prisma.module.findUnique({
       where: {
         id: id,
       },
+      include: {
+        lessons: {
+          select: {
+            id: true,
+            name: true,
+            description: true,
+          },
+        },
+      },
     })
   }
 
-  findBySlug = async (slug: string): Promise<Module | null> => {
+  findBySlug = async (
+    slug: string
+  ): Promise<FindModuleByIdOrSlugResponse | null> => {
     return await prisma.module.findUnique({
       where: {
         slug: slug,
+      },
+      include: {
+        lessons: {
+          select: {
+            id: true,
+            name: true,
+            description: true,
+          },
+        },
       },
     })
   }

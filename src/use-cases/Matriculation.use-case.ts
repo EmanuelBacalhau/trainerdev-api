@@ -142,7 +142,7 @@ export class MatriculationUseCase {
     return matriculationUpdated
   }
 
-  delete = async (id: number) => {
+  delete = async (id: number): Promise<void> => {
     const matriculation = await this.matriculationRepository.findById(id)
 
     if (!matriculation) {

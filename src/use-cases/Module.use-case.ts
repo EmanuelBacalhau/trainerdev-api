@@ -1,6 +1,7 @@
 import { HttpError } from '../errors/HttpError'
 import type {
   CreateModuleAttributes,
+  FindModuleByIdOrSlugResponse,
   IModuleRepository,
   Module,
   ModuleWhereInputs,
@@ -72,7 +73,7 @@ export class ModuleUseCase {
     }
   }
 
-  findById = async (id: number): Promise<Module | null> => {
+  findById = async (id: number): Promise<FindModuleByIdOrSlugResponse> => {
     const module = await this.moduleRepository.findById(id)
 
     if (!module) {
@@ -82,7 +83,7 @@ export class ModuleUseCase {
     return module
   }
 
-  findBySlug = async (slug: string): Promise<Module | null> => {
+  findBySlug = async (slug: string): Promise<FindModuleByIdOrSlugResponse> => {
     const module = await this.moduleRepository.findBySlug(slug)
 
     if (!module) {
@@ -107,7 +108,10 @@ export class ModuleUseCase {
     })
   }
 
-  update = async (id: number, attributes: UpdateModuleUseCase) => {
+  update = async (
+    id: number,
+    attributes: UpdateModuleUseCase
+  ): Promise<Module> => {
     const isModuleExists = await this.moduleRepository.findById(id)
 
     if (!isModuleExists) {

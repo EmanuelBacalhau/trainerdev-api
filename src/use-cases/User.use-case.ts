@@ -79,7 +79,7 @@ export class UserUseCase {
     }
   }
 
-  findById = async (id: number): Promise<User | null> => {
+  findById = async (id: number): Promise<User> => {
     const user = await this.userRepository.findById(id)
 
     if (!user) {
