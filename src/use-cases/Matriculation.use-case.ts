@@ -10,6 +10,7 @@ import type {
 } from '../repositories/IMatriculationRepository.interface'
 import type { ITrackRepository } from '../repositories/ITrackRepository.interface'
 import type { IUserRepository } from '../repositories/IUserRepository.interface'
+import { generateMatriculationCode } from '../utils/generate-matriculation-code'
 
 interface FindResponse {
   matriculations: FindMatriculationResponse[]
@@ -100,13 +101,7 @@ export class MatriculationUseCase {
       throw new HttpError('User already matriculated', 409)
     }
 
-    const prefix = dayjs().format('YYMM')
-    const randomSerial = Math.random()
-      .toString(36)
-      .substring(2, 8)
-      .toLocaleUpperCase()
-    const serialCode = `${prefix}${randomSerial}`
-
+    const serialCode = generateMatriculationCode()
     const matriculation = await this.matriculationRepository.create({
       ...attributes,
       serialCode,

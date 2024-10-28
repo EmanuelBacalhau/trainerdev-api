@@ -8,6 +8,9 @@
     "build": "tsc",
     "prepare": "husky"
   },
+  "prisma": {
+    "seed": "tsx ./prisma/seeds/index.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
