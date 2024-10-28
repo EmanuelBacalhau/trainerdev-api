@@ -1,3 +1,4 @@
+import { AuthController } from './controllers/Auth.controller'
 import { LessonController } from './controllers/Lesson.controller'
 import { MatriculationController } from './controllers/Matriculation.controller'
 import { ModuleController } from './controllers/Module.controller'
@@ -8,6 +9,7 @@ import { PrismaMatriculationRepository } from './repositories/prisma/PrismaMatri
 import { PrismaModuleRepository } from './repositories/prisma/PrismaModule.repository'
 import { PrismaTrackRepository } from './repositories/prisma/PrismaTrack.repository'
 import { PrismaUserRepository } from './repositories/prisma/PrismaUser.repository'
+import { AuthUseCase } from './use-cases/Auth.use-case'
 import { LessonUseCase } from './use-cases/Lesson.use-case'
 import { MatriculationUseCase } from './use-cases/Matriculation.use-case'
 import { ModuleUseCase } from './use-cases/Module.use-case'
@@ -29,6 +31,7 @@ const matriculationUseCase = new MatriculationUseCase(
   trackRepository,
   userRepository
 )
+const authUseCase = new AuthUseCase(userRepository)
 
 export const userController = new UserController(userUseCase)
 export const trackController = new TrackController(trackUseCase)
@@ -37,3 +40,4 @@ export const matriculationController = new MatriculationController(
 )
 export const moduleController = new ModuleController(moduleUseCase)
 export const lessonController = new LessonController(lessonUseCase)
+export const authController = new AuthController(authUseCase)
