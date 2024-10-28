@@ -7,8 +7,6 @@ export interface User {
   password: string
   role: Role
   avatar: string | null
-  createdAt: Date
-  updatedAt: Date
 }
 
 export interface UserWhereInputs {
@@ -43,18 +41,26 @@ export interface UpdateUserAttributes {
   avatar?: string
 }
 
-export type FindUserByIdResponse = User & {
+export type FindUserByIdResponse = Omit<User, 'password'> & {
   matriculation: {
     serialCode: string
-  }
+    track: {
+      id: number
+      coverUrl: string
+      name: string
+    }
+  } | null
 }
 
 export interface IUserRepository {
-  find(params: FindUsersParams): Promise<User[]>
-  findById(id: number): Promise<User | null>
+  find(params: FindUsersParams): Promise<Omit<User, 'password'>[]>
+  findById(id: number): Promise<FindUserByIdResponse | null>
   findByEmail(email: string): Promise<User | null>
-  create(attributes: CreateUserAttributes): Promise<User>
-  update(id: number, attributes: UpdateUserAttributes): Promise<User>
+  create(attributes: CreateUserAttributes): Promise<Omit<User, 'password'>>
+  update(
+    id: number,
+    attributes: UpdateUserAttributes
+  ): Promise<Omit<User, 'password'>>
   delete(id: number): Promise<void>
   count(where: UserWhereInputs): Promise<number>
 }

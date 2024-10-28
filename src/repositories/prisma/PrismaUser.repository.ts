@@ -1,6 +1,7 @@
 import { prisma } from '../../databases/prisma'
 import type {
   CreateUserAttributes,
+  FindUserByIdResponse,
   FindUsersParams,
   IUserRepository,
   UpdateUserAttributes,
@@ -9,7 +10,7 @@ import type {
 } from '../IUserRepository.interface'
 
 export class PrismaUserRepository implements IUserRepository {
-  find = async (params: FindUsersParams): Promise<User[]> => {
+  find = async (params: FindUsersParams): Promise<Omit<User, 'password'>[]> => {
     const { where, sortBy, order, skip, take } = params
 
     return await prisma.user.findMany({
@@ -26,18 +27,37 @@ export class PrismaUserRepository implements IUserRepository {
       orderBy: {
         [sortBy ?? 'name']: order,
       },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        avatar: true,
+      },
     })
   }
 
-  findById = async (id: number): Promise<User | null> => {
+  findById = async (id: number): Promise<FindUserByIdResponse | null> => {
     return await prisma.user.findUnique({
       where: {
         id: id,
       },
-      include: {
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        avatar: true,
         matriculation: {
           select: {
             serialCode: true,
+            track: {
+              select: {
+                id: true,
+                coverUrl: true,
+                name: true,
+              },
+            },
           },
         },
       },
@@ -49,10 +69,20 @@ export class PrismaUserRepository implements IUserRepository {
       where: {
         email: email,
       },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        avatar: true,
+        password: true,
+      },
     })
   }
 
-  create = async (attributes: CreateUserAttributes): Promise<User> => {
+  create = async (
+    attributes: CreateUserAttributes
+  ): Promise<Omit<User, 'password'>> => {
     return await prisma.user.create({
       data: {
         email: attributes.email,
@@ -60,13 +90,20 @@ export class PrismaUserRepository implements IUserRepository {
         role: attributes.role,
         password: attributes.password,
       },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        avatar: true,
+      },
     })
   }
 
   update = async (
     id: number,
     attributes: UpdateUserAttributes
-  ): Promise<User> => {
+  ): Promise<Omit<User, 'password'>> => {
     return await prisma.user.update({
       where: {
         id,
@@ -77,6 +114,13 @@ export class PrismaUserRepository implements IUserRepository {
         role: attributes.role,
         password: attributes.password,
         avatar: attributes.avatar,
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        avatar: true,
       },
     })
   }
