@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import multer from 'multer'
 import {
+  authController,
   lessonController,
   matriculationController,
   moduleController,
@@ -26,6 +27,9 @@ const moduleMulterConfig = multer({
 const lessonMulterConfig = multer({
   storage: upload('lessons', ['video/mp4']),
 })
+
+// AUTH
+router.post('/session', authController.execute)
 
 // USERS
 router.get('/users', userController.index)
