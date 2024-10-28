@@ -27,12 +27,12 @@ export class AuthUseCase {
 
     const token = sign(
       {
+        id: user.id,
         role: user.role,
       },
       env.JWT_SECRET,
       {
         expiresIn: '1d',
-        subject: user.id.toString(),
       }
     )
 

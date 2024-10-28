@@ -34,6 +34,13 @@ export class PrismaUserRepository implements IUserRepository {
       where: {
         id: id,
       },
+      include: {
+        matriculation: {
+          select: {
+            serialCode: true,
+          },
+        },
+      },
     })
   }
 

@@ -14,16 +14,16 @@ enum Role {
 }
 
 model User {
-  id             Int            @id @default(autoincrement())
-  avatar         String?        @db.VarChar(255)
-  name           String         @db.VarChar(255)
-  email          String         @unique @db.VarChar(255)
-  password       String         @db.VarChar(60)
-  role           Role           @default(TRAINEE)
-  disabled       Boolean?       @default(false)
-  createdAt      DateTime       @default(now()) @map("created_at")
-  updatedAt      DateTime       @default(now()) @map("updated_at")
-  matriculations Matriculation?
+  id            Int            @id @default(autoincrement())
+  avatar        String?        @db.VarChar(255)
+  name          String         @db.VarChar(255)
+  email         String         @unique @db.VarChar(255)
+  password      String         @db.VarChar(60)
+  role          Role           @default(TRAINEE)
+  disabled      Boolean?       @default(false)
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @default(now()) @map("updated_at")
+  matriculation Matriculation?
 
   @@index([email])
   @@index([name])

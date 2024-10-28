@@ -43,6 +43,12 @@ export interface UpdateUserAttributes {
   avatar?: string
 }
 
+export type FindUserByIdResponse = User & {
+  matriculation: {
+    serialCode: string
+  }
+}
+
 export interface IUserRepository {
   find(params: FindUsersParams): Promise<User[]>
   findById(id: number): Promise<User | null>

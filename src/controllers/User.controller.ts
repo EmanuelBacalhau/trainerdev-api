@@ -24,6 +24,16 @@ export class UserController {
     }
   }
 
+  myDetails: Handler = async (request, response, next) => {
+    try {
+      const user = await this.userUseCase.findById(request.user.id)
+
+      response.status(200).json(user)
+    } catch (error) {
+      next(error)
+    }
+  }
+
   findById: Handler = async (request, response, next) => {
     try {
       const params = GetUserIdRequestSchema.parse(request.params)

@@ -4,6 +4,7 @@ import { env } from '../env'
 import { HttpError } from '../errors/HttpError'
 
 interface JwtPayload {
+  id: number
   role: string
 }
 
@@ -24,6 +25,7 @@ export const isAuthenticatedMiddleware: Handler = (request, response, next) => {
     }
 
     request.user = {
+      id: decoded.id,
       role: decoded.role,
     }
 

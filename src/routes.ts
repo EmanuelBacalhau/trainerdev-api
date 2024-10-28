@@ -40,10 +40,11 @@ router.get(
   verifyUserRole(['ADMIN']),
   userController.index
 )
+router.get('/users/me', isAuthenticatedMiddleware, userController.myDetails)
 router.get(
   '/users/:id',
-  verifyUserRole(['ADMIN']),
   isAuthenticatedMiddleware,
+  verifyUserRole(['ADMIN']),
   userController.findById
 )
 router.post(

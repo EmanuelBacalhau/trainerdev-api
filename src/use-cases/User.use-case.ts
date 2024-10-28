@@ -79,6 +79,16 @@ export class UserUseCase {
     }
   }
 
+  myDetails = async (id: number): Promise<User> => {
+    const user = await this.userRepository.findById(id)
+
+    if (!user) {
+      throw new HttpError('User not found', 404)
+    }
+
+    return user
+  }
+
   findById = async (id: number): Promise<User> => {
     const user = await this.userRepository.findById(id)
 
