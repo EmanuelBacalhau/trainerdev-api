@@ -1,6 +1,7 @@
 # Folder
 node_modules/
 build/
+coverage/
 
 # Files
 .env
