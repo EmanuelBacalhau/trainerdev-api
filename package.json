@@ -6,6 +6,7 @@
     "start": "node build/src/server.js",
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
+    "test:unit": "vitest run --dir ./tests/unit",
     "test:integrations": "vitest run --dir ./tests/integrations",
     "test:e2e": "vitest run --dir ./tests/end-to-end",
     "test:create-prisma-environment": "npm link ./prisma/vitest-environment-prisma",
