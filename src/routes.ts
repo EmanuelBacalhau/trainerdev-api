@@ -8,27 +8,19 @@ import {
   trackController,
   userController,
 } from './container'
-import { upload } from './libs/multer'
+import { multerUpload } from './libs/multerUpload'
 import { isAuthenticatedMiddleware } from './middlewares/is-authenticated.middleware'
 import { verifyUserRole } from './middlewares/verify-user-role.middleware'
 
 export const router = Router()
 
-const userMulterConfig = multer({
-  storage: upload('users', ['image/jpeg', 'image/png']),
-})
+const userMulterConfig = multerUpload('users', ['image/jpeg', 'image/png'])
 
-const trackMulterConfig = multer({
-  storage: upload('tracks', ['image/jpeg', 'image/png']),
-})
+const trackMulterConfig = multerUpload('tracks', ['image/jpeg', 'image/png'])
 
-const moduleMulterConfig = multer({
-  storage: upload('modules', ['image/jpeg', 'image/png']),
-})
+const moduleMulterConfig = multerUpload('modules', ['image/jpeg', 'image/png'])
 
-const lessonMulterConfig = multer({
-  storage: upload('lessons', ['video/mp4']),
-})
+const lessonMulterConfig = multerUpload('lessons', ['video/mp4'])
 
 // AUTH
 router.post('/session', authController.execute)
