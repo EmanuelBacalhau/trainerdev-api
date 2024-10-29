@@ -1,9 +1,8 @@
-import { existsSync, unlinkSync } from 'node:fs'
-import { resolve } from 'node:path'
 import { hash } from 'bcryptjs'
 import { HttpError } from '../errors/HttpError'
 import type {
   CreateUserAttributes,
+  FindUserByIdResponse,
   IUserRepository,
   Role,
   UpdateUserAttributes,
@@ -22,7 +21,7 @@ interface GetUsersWithPaginated {
 }
 
 interface FindResponse {
-  users: User[]
+  users: Omit<User, 'password'>[]
   meta: {
     total: number
     totalPages: number
@@ -79,7 +78,7 @@ export class UserUseCase {
     }
   }
 
-  myDetails = async (id: number): Promise<User> => {
+  myDetails = async (id: number): Promise<FindUserByIdResponse> => {
     const user = await this.userRepository.findById(id)
 
     if (!user) {
@@ -89,7 +88,7 @@ export class UserUseCase {
     return user
   }
 
-  findById = async (id: number): Promise<User> => {
+  findById = async (id: number): Promise<FindUserByIdResponse> => {
     const user = await this.userRepository.findById(id)
 
     if (!user) {
@@ -99,7 +98,9 @@ export class UserUseCase {
     return user
   }
 
-  create = async (attributes: CreateUserAttributes): Promise<User> => {
+  create = async (
+    attributes: CreateUserAttributes
+  ): Promise<Omit<User, 'password'>> => {
     const isEmailAlreadyUsed = await this.userRepository.findByEmail(
       attributes.email
     )
@@ -119,7 +120,7 @@ export class UserUseCase {
   update = async (
     id: number,
     attributes: UpdateUserAttributes
-  ): Promise<User> => {
+  ): Promise<Omit<User, 'password'>> => {
     const isUserAlreadyExists = await this.userRepository.findById(id)
 
     if (!isUserAlreadyExists) {
