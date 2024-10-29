@@ -1,0 +1,7 @@
+{
+  "name": "vitest-environment-prisma",
+  "main": "prisma-test-environment.ts",
+  "author": "Emanuel Bacalhau",
+  "license": "ISC",
+  "type": "module"
+}
