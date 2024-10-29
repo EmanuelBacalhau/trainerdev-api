@@ -14,8 +14,8 @@ jobs:
           - 5432:5432
         env:
           POSTGRESQL_USERNAME: postgres
-          POSTGRESQL_PASSWORD: postgres
-          POSTGRESQL_DATABASE: testdb
+          POSTGRESQL_PASSWORD: trainer-dev
+          POSTGRESQL_DATABASE: trainer-dev
 
     steps:
       - uses: actions/checkout@v2
