@@ -5,7 +5,7 @@ import { randomUUID } from 'node:crypto'
 import { PrismaClient } from '@prisma/client'
 import type { Environment } from 'vitest/environments'
 
-export const prismaTestEnvironment = new PrismaClient()
+const prismaTestEnvironment = new PrismaClient()
 
 function createTestDatabaseUrl(schema: string) {
   if (!process.env.DATABASE_URL) {
@@ -29,12 +29,12 @@ export default {
 
     process.env.DATABASE_URL = databaseUrl
 
-    execSync('npx prisma migrate deploy')
+    execSync('npx prisma migrate reset --force')
 
     return {
       teardown: async () => {
         await prismaTestEnvironment.$executeRawUnsafe(
-          `DROP SCHEMA "${schema}" CASCADE`
+          `DROP SCHEMA IF EXISTS "${schema}" CASCADE`
         )
         await prismaTestEnvironment.$disconnect()
       },

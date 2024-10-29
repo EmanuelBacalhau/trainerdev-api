@@ -9,7 +9,7 @@ jobs:
 
     services:
       postgres:
-        image: bitnami/postgresql@latest
+        image: bitnami/postgresql:latest
         ports:
           - 5432:5432
         env:
@@ -17,21 +17,17 @@ jobs:
           POSTGRESQL_PASSWORD: postgres
           POSTGRESQL_DATABASE: testdb
 
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v2
+    steps:
+      - uses: actions/checkout@v2
 
-        - name: Set up Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 20.17.0
-            cache: "npm"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.17.0
+          cache: "npm"
 
-        - name: Install dependencies
-          run: npm install
+      - run: npm install
 
-        - name: Run Integrations Tests
-          run: npm run test:integrations
-          env:
-            JWT_SECRET: testing
-            DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/testdb?schema=public"
+      - run: npm run test:integrations
+        env:
+          JWT_SECRET: testing
+          DATABASE_URL: "postgresql://postgres:trainer-dev@localhost:5432/trainer-dev?schema=public"
