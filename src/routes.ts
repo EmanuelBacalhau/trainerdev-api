@@ -1,19 +1,23 @@
 import { Router } from 'express'
 import {
   authController,
+  createModuleController,
   createTrackController,
   createUserController,
+  deleteModuleController,
   deleteTrackController,
   deleteUserController,
+  findAllModuleController,
   findAllTrackController,
   findAllUserController,
+  findModuleByIdController,
+  findModuleBySlugController,
   findTrackByIdController,
   findTrackBySlugController,
   findUserByIdController,
   getUserByIdController,
   lessonController,
   matriculationController,
-  moduleController,
   removeModuleFromTrackController,
   updateTrackController,
   updateUserController,
@@ -118,39 +122,39 @@ router.get(
   '/modules',
   isAuthenticatedMiddleware,
   verifyUserRole(['ADMIN']),
-  moduleController.index
+  findAllModuleController.execute.bind(findAllModuleController)
 )
 router.get(
   '/modules/:id',
   isAuthenticatedMiddleware,
   verifyUserRole(['ADMIN', 'TRAINEE', 'TRAINER']),
-  moduleController.findById
+  findModuleByIdController.execute.bind(findModuleByIdController)
 )
 router.get(
   '/modules/slug/:slug',
   isAuthenticatedMiddleware,
   verifyUserRole(['ADMIN', 'TRAINEE', 'TRAINER']),
-  moduleController.findBySlug
+  findModuleBySlugController.execute.bind(findModuleBySlugController)
 )
 router.post(
   '/modules',
   isAuthenticatedMiddleware,
   verifyUserRole(['ADMIN']),
   moduleMulterConfig.single('cover'),
-  moduleController.create
+  createModuleController.execute.bind(createModuleController)
 )
 router.put(
   '/modules/:id',
   isAuthenticatedMiddleware,
   verifyUserRole(['ADMIN']),
   moduleMulterConfig.single('cover'),
-  moduleController.update
+  updateTrackController.execute.bind(updateTrackController)
 )
 router.delete(
   '/modules/:id',
   isAuthenticatedMiddleware,
   verifyUserRole(['ADMIN']),
-  moduleController.delete
+  deleteModuleController.execute.bind(deleteModuleController)
 )
 
 // LESSONS
