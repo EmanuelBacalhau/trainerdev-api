@@ -7,12 +7,18 @@ import type {
   Track,
   TrackWhereInputs,
   UpdateTrackAttributes,
-} from '../ITrackRepository.interface'
+} from '../track-repository.interface'
 
 export class PrismaTrackRepository implements ITrackRepository {
   find = async (params: FindTracksParams): Promise<Track[]> => {
     return await prisma.track.findMany({
-      where: params.where,
+      where: {
+        name: {
+          contains: params.where?.name?.contains,
+          mode: 'insensitive',
+        },
+        status: params.where?.status,
+      },
       skip: params.skip,
       take: params.take,
       orderBy: {

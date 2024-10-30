@@ -14,8 +14,6 @@ export interface Track {
 export interface TrackWhereInputs {
   name?: {
     contains?: string
-    equals?: string
-    mode?: 'insensitive' | 'default'
   }
   status?: TrackStatus
 }
