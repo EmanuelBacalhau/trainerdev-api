@@ -2,6 +2,12 @@ import { AuthController } from './controllers/Auth.controller'
 import { LessonController } from './controllers/Lesson.controller'
 import { MatriculationController } from './controllers/Matriculation.controller'
 import { ModuleController } from './controllers/Module.controller'
+import { makeCreateModuleController } from './controllers/module/factories/make-create-module-controller'
+import { makeDeleteModuleController } from './controllers/module/factories/make-delete-module-controller'
+import { makeFindAllModuleController } from './controllers/module/factories/make-find-all-module-controller'
+import { makeFindModuleByIdController } from './controllers/module/factories/make-find-module-by-id-controller'
+import { makeFindModuleBySlugController } from './controllers/module/factories/make-find-module-by-slug-controller'
+import { makeUpdateModuleController } from './controllers/module/factories/make-update-module-controller'
 import { makeCreateTrackController } from './controllers/track/factories/make-create-track-controller'
 import { makeDeleteTrackController } from './controllers/track/factories/make-delete-track-controller'
 import { makeFindAllTrackController } from './controllers/track/factories/make-find-all-track-controller'
@@ -17,7 +23,7 @@ import { makeGetUserDetailsController } from './controllers/user/factories/make-
 import { makeUpdateUserController } from './controllers/user/factories/make-update-user-controller'
 import { PrismaLessonRepository } from './repositories/prisma/PrismaLesson.repository'
 import { PrismaMatriculationRepository } from './repositories/prisma/PrismaMatriculation.repository'
-import { PrismaModuleRepository } from './repositories/prisma/PrismaModule.repository'
+import { PrismaModuleRepository } from './repositories/prisma/prisma-module.repository'
 import { PrismaTrackRepository } from './repositories/prisma/prisma-track.repository'
 import { PrismaUserRepository } from './repositories/prisma/prisma-user.repository'
 import { AuthUseCase } from './use-cases/Auth.use-case'
@@ -43,6 +49,14 @@ export const removeModuleFromTrackController =
   makeRemoveModuleFromTrackController()
 export const deleteTrackController = makeDeleteTrackController()
 
+// Module controllers
+export const createModuleController = makeCreateModuleController()
+export const updateModuleController = makeUpdateModuleController()
+export const deleteModuleController = makeDeleteModuleController()
+export const findAllModuleController = makeFindAllModuleController()
+export const findModuleByIdController = makeFindModuleByIdController()
+export const findModuleBySlugController = makeFindModuleBySlugController()
+
 const userRepository = new PrismaUserRepository()
 const trackRepository = new PrismaTrackRepository()
 const moduleRepository = new PrismaModuleRepository()
@@ -61,6 +75,5 @@ const authUseCase = new AuthUseCase(userRepository)
 export const matriculationController = new MatriculationController(
   matriculationUseCase
 )
-export const moduleController = new ModuleController(moduleUseCase)
 export const lessonController = new LessonController(lessonUseCase)
 export const authController = new AuthController(authUseCase)
