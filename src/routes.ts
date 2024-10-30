@@ -1,15 +1,21 @@
 import { Router } from 'express'
 import {
   authController,
+  createTrackController,
   createUserController,
+  deleteTrackController,
   deleteUserController,
+  findAllTrackController,
   findAllUserController,
+  findTrackByIdController,
+  findTrackBySlugController,
   findUserByIdController,
   getUserByIdController,
   lessonController,
   matriculationController,
   moduleController,
-  trackController,
+  removeModuleFromTrackController,
+  updateTrackController,
   updateUserController,
 } from './container'
 import { multerUpload } from './libs/multerUpload'
@@ -72,39 +78,39 @@ router.get(
   '/tracks',
   isAuthenticatedMiddleware,
   verifyUserRole(['ADMIN', 'TRAINEE', 'TRAINER']),
-  trackController.index
+  findAllTrackController.execute.bind(findAllTrackController)
 )
 router.get(
   '/tracks/:id',
   isAuthenticatedMiddleware,
   verifyUserRole(['ADMIN', 'TRAINEE', 'TRAINER']),
-  trackController.findById
+  findTrackByIdController.execute.bind(findTrackByIdController)
 )
 router.get(
   '/tracks/slug/:slug',
   isAuthenticatedMiddleware,
   verifyUserRole(['ADMIN', 'TRAINEE', 'TRAINER']),
-  trackController.findBySlug
+  findTrackBySlugController.execute.bind(findTrackBySlugController)
 )
 router.post(
   '/tracks',
   isAuthenticatedMiddleware,
   verifyUserRole(['ADMIN']),
   trackMulterConfig.single('cover'),
-  trackController.create
+  createTrackController.execute.bind(createTrackController)
 )
 router.put(
   '/tracks/:id',
   isAuthenticatedMiddleware,
   verifyUserRole(['ADMIN']),
   trackMulterConfig.single('cover'),
-  trackController.update
+  updateTrackController.execute.bind(updateTrackController)
 )
 router.delete(
   '/tracks/:id',
   isAuthenticatedMiddleware,
   verifyUserRole(['ADMIN']),
-  trackController.delete
+  deleteTrackController.execute.bind(deleteTrackController)
 )
 
 // MODULES
@@ -218,5 +224,5 @@ router.delete(
   '/tracks/:id/modules/:moduleId',
   isAuthenticatedMiddleware,
   verifyUserRole(['ADMIN']),
-  trackController.removeModuleFromTrack
+  removeModuleFromTrackController.execute.bind(removeModuleFromTrackController)
 )

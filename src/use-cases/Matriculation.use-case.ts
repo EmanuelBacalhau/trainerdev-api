@@ -8,7 +8,7 @@ import type {
   MatriculationWhereInputs,
   UpdateMatriculationAttributes,
 } from '../repositories/IMatriculationRepository.interface'
-import type { ITrackRepository } from '../repositories/ITrackRepository.interface'
+import type { ITrackRepository } from '../repositories/track-repository.interface'
 import type { IUserRepository } from '../repositories/user-repository.interface'
 import { generateMatriculationCode } from '../utils/generate-matriculation-code'
 
