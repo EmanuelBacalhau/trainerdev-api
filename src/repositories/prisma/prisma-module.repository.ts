@@ -7,7 +7,7 @@ import type {
   Module,
   ModuleWhereInputs,
   UpdateModuleAttributes,
-} from '../IModuleRepository.interface'
+} from '../module-repository.interface'
 
 export class PrismaModuleRepository implements IModuleRepository {
   find = async (params: FindModulesParams): Promise<Module[]> => {
@@ -15,7 +15,7 @@ export class PrismaModuleRepository implements IModuleRepository {
       where: {
         name: {
           contains: params.where?.name?.contains,
-          mode: params.where?.name?.mode,
+          mode: 'insensitive',
         },
       },
       orderBy: {
@@ -104,7 +104,12 @@ export class PrismaModuleRepository implements IModuleRepository {
 
   count = async (where: ModuleWhereInputs): Promise<number> => {
     return await prisma.module.count({
-      where,
+      where: {
+        name: {
+          contains: where.name?.contains,
+          mode: 'insensitive',
+        },
+      },
     })
   }
 }

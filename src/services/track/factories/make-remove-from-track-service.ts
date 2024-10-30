@@ -1,4 +1,4 @@
-import { PrismaModuleRepository } from '@/repositories/prisma/PrismaModule.repository'
+import { PrismaModuleRepository } from '@/repositories/prisma/prisma-module.repository'
 import { PrismaTrackRepository } from '@/repositories/prisma/prisma-track.repository'
 import { RemoveModuleFromTrackService } from '../remove-module-from-track.service'
 

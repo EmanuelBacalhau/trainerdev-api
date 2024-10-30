@@ -1,5 +1,5 @@
 import { HttpError } from '@/errors/HttpError'
-import type { IModuleRepository } from '@/repositories/IModuleRepository.interface'
+import type { IModuleRepository } from '@/repositories/module-repository.interface'
 import type { ITrackRepository } from '@/repositories/track-repository.interface'
 import type { IService } from '../service.interface'
 

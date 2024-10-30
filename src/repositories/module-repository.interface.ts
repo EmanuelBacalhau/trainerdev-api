@@ -12,7 +12,6 @@ export interface Module {
 export interface ModuleWhereInputs {
   name?: {
     contains?: string
-    mode?: 'insensitive' | 'default'
   }
 }
 
