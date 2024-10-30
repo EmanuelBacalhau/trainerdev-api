@@ -1,11 +1,16 @@
 import { Router } from 'express'
 import {
   authController,
+  createUserController,
+  deleteUserController,
+  findAllUserController,
+  findUserByIdController,
+  getUserByIdController,
   lessonController,
   matriculationController,
   moduleController,
   trackController,
-  userController,
+  updateUserController,
 } from './container'
 import { multerUpload } from './libs/multerUpload'
 import { isAuthenticatedMiddleware } from './middlewares/is-authenticated.middleware'
@@ -29,33 +34,37 @@ router.get(
   '/users',
   isAuthenticatedMiddleware,
   verifyUserRole(['ADMIN']),
-  userController.index
+  findAllUserController.execute.bind(findAllUserController)
 )
-router.get('/users/me', isAuthenticatedMiddleware, userController.myDetails)
+router.get(
+  '/users/me',
+  isAuthenticatedMiddleware,
+  getUserByIdController.execute.bind(getUserByIdController)
+)
 router.get(
   '/users/:id',
   isAuthenticatedMiddleware,
   verifyUserRole(['ADMIN']),
-  userController.findById
+  findUserByIdController.execute.bind(findUserByIdController)
 )
 router.post(
   '/users',
   isAuthenticatedMiddleware,
   verifyUserRole(['ADMIN']),
-  userController.create
+  createUserController.execute.bind(createUserController)
 )
 router.put(
   '/users/:id',
   isAuthenticatedMiddleware,
   verifyUserRole(['ADMIN']),
   userMulterConfig.single('avatar'),
-  userController.update
+  updateUserController.execute.bind(updateUserController)
 )
 router.delete(
   '/users/:id',
   isAuthenticatedMiddleware,
   verifyUserRole(['ADMIN']),
-  userController.delete
+  deleteUserController.execute.bind(deleteUserController)
 )
 
 // TRACKS
