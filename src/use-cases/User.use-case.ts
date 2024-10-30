@@ -8,7 +8,7 @@ import type {
   UpdateUserAttributes,
   User,
   UserWhereInputs,
-} from '../repositories/IUserRepository.interface'
+} from '../repositories/user-repository.interface'
 import { removeFile } from '../utils/remove-file'
 
 interface GetUsersWithPaginated {

@@ -9,7 +9,7 @@ import type {
   UpdateMatriculationAttributes,
 } from '../repositories/IMatriculationRepository.interface'
 import type { ITrackRepository } from '../repositories/ITrackRepository.interface'
-import type { IUserRepository } from '../repositories/IUserRepository.interface'
+import type { IUserRepository } from '../repositories/user-repository.interface'
 import { generateMatriculationCode } from '../utils/generate-matriculation-code'
 
 interface FindResponse {

@@ -3,7 +3,7 @@ import type {
   CreateUserAttributes,
   IUserRepository,
   User,
-} from '@/repositories/IUserRepository.interface'
+} from '@/repositories/user-repository.interface'
 import { hashSync } from 'bcryptjs'
 import type { IService } from '../service.interface'
 

@@ -1,5 +1,5 @@
 import type { Handler, NextFunction, Request, Response } from 'express'
-import type { Role } from '../repositories/IUserRepository.interface'
+import type { Role } from '../repositories/user-repository.interface'
 
 export function verifyUserRole(roles: Role[]) {
   const middleware: Handler = async (

@@ -7,7 +7,7 @@ import type {
   UpdateUserAttributes,
   User,
   UserWhereInputs,
-} from '../IUserRepository.interface'
+} from '../user-repository.interface'
 
 export class PrismaUserRepository implements IUserRepository {
   find = async (params: FindUsersParams): Promise<Omit<User, 'password'>[]> => {
@@ -17,8 +17,7 @@ export class PrismaUserRepository implements IUserRepository {
       where: {
         name: {
           contains: where?.name?.contains,
-          equals: where?.name?.equals,
-          mode: where?.name?.mode,
+          mode: 'insensitive',
         },
         role: where?.role,
       },
@@ -138,8 +137,7 @@ export class PrismaUserRepository implements IUserRepository {
       where: {
         name: {
           contains: where?.name?.contains,
-          equals: where?.name?.equals,
-          mode: where?.name?.mode,
+          mode: 'insensitive',
         },
         role: where?.role,
       },

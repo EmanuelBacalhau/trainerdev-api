@@ -1,4 +1,4 @@
-import { PrismaUserRepository } from '@/repositories/prisma/PrismaUser.repository'
+import { PrismaUserRepository } from '@/repositories/prisma/prisma-user.repository'
 import { FindAllUserService } from '../find-all-user.service'
 
 export function makeFindAllUserService() {

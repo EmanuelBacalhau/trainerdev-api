@@ -12,8 +12,6 @@ export interface User {
 export interface UserWhereInputs {
   name?: {
     contains?: string
-    equals?: string
-    mode?: 'insensitive' | 'default'
   }
   role?: Role
 }

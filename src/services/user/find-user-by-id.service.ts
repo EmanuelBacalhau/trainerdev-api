@@ -2,7 +2,7 @@ import { HttpError } from '@/errors/HttpError'
 import type {
   FindUserByIdResponse,
   IUserRepository,
-} from '@/repositories/IUserRepository.interface'
+} from '@/repositories/user-repository.interface'
 import type { IService } from '../service.interface'
 
 interface IRequest {

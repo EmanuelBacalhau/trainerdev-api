@@ -1,5 +1,5 @@
 import { HttpError } from '@/errors/HttpError'
-import type { IUserRepository } from '@/repositories/IUserRepository.interface'
+import type { IUserRepository } from '@/repositories/user-repository.interface'
 import type { IService } from '../service.interface'
 
 interface IRequest {

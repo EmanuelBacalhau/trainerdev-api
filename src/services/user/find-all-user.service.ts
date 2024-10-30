@@ -3,7 +3,7 @@ import type {
   Role,
   User,
   UserWhereInputs,
-} from '@/repositories/IUserRepository.interface'
+} from '@/repositories/user-repository.interface'
 import type { IService } from '../service.interface'
 
 interface IRequest {

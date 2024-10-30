@@ -2,7 +2,7 @@ import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 import { env } from '../env'
 import { HttpError } from '../errors/HttpError'
-import type { IUserRepository } from '../repositories/IUserRepository.interface'
+import type { IUserRepository } from '../repositories/user-repository.interface'
 
 interface ExecuteParams {
   email: string

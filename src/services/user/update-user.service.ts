@@ -3,7 +3,7 @@ import type {
   IUserRepository,
   UpdateUserAttributes,
   User,
-} from '@/repositories/IUserRepository.interface'
+} from '@/repositories/user-repository.interface'
 import { removeFile } from '@/utils/remove-file'
 import { hashSync } from 'bcryptjs'
 import type { IService } from '../service.interface'

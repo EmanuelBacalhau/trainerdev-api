@@ -8,7 +8,7 @@ import { PrismaLessonRepository } from './repositories/prisma/PrismaLesson.repos
 import { PrismaMatriculationRepository } from './repositories/prisma/PrismaMatriculation.repository'
 import { PrismaModuleRepository } from './repositories/prisma/PrismaModule.repository'
 import { PrismaTrackRepository } from './repositories/prisma/PrismaTrack.repository'
-import { PrismaUserRepository } from './repositories/prisma/PrismaUser.repository'
+import { PrismaUserRepository } from './repositories/prisma/prisma-user.repository'
 import { AuthUseCase } from './use-cases/Auth.use-case'
 import { LessonUseCase } from './use-cases/Lesson.use-case'
 import { MatriculationUseCase } from './use-cases/Matriculation.use-case'

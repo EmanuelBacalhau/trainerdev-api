@@ -1,4 +1,4 @@
-import { PrismaUserRepository } from '@/repositories/prisma/PrismaUser.repository'
+import { PrismaUserRepository } from '@/repositories/prisma/prisma-user.repository'
 import { DeleteUserService } from '../delete-user.service'
 
 export function makeDeleteUserService() {
