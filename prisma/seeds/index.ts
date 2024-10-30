@@ -9,7 +9,7 @@ async function main() {
     data: {
       name: 'Admin',
       email: 'admin@admin.com',
-      password: await hash('admin', 8),
+      password: await hash('admin123', 8),
       role: 'ADMIN',
     },
   })
@@ -18,7 +18,7 @@ async function main() {
     data: {
       name: 'Trainer',
       email: 'trainer@trainer.com',
-      password: await hash('trainer', 8),
+      password: await hash('trainer24', 8),
       role: 'TRAINER',
     },
   })
@@ -27,7 +27,7 @@ async function main() {
     data: {
       name: 'Trainee',
       email: 'trainee@trainee.com',
-      password: await hash('trainee', 8),
+      password: await hash('trainee24', 8),
       role: 'TRAINEE',
     },
   })
