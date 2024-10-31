@@ -1,8 +1,8 @@
 import { PrismaLessonRepository } from '@/repositories/prisma/prisma-lesson.repository'
-import { LessonUseCase } from '@/use-cases/Lesson.use-case'
+import { FindLessonByIdService } from '../find-lesson-by-id.service'
 
-export function makeFindLessonById() {
+export function makeFindLessonByIdService() {
   const lessonRepository = new PrismaLessonRepository()
-  const lessonUseCase = new LessonUseCase(lessonRepository)
-  return lessonUseCase
+  const lessonService = new FindLessonByIdService(lessonRepository)
+  return lessonService
 }
