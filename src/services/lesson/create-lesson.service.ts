@@ -7,7 +7,7 @@ import type {
 import type { IService } from '../service.interface'
 
 interface IRequest {
-  attributes: CreateLessonAttributes
+  attributes: Omit<CreateLessonAttributes, 'slug'>
 }
 
 interface IResponse {

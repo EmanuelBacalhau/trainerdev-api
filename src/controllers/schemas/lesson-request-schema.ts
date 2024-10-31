@@ -26,3 +26,7 @@ export const UpdateLessonAttributesSchema = z.object({
 export const GetLessonByIdParamsSchema = z.object({
   id: z.coerce.number().int().positive(),
 })
+
+export const GetLessonBySlugRequestSchema = z.object({
+  slug: z.string(),
+})
