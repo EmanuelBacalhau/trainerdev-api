@@ -7,12 +7,18 @@ import type {
   Lesson,
   LessonWhereInputs,
   UpdateLessonAttributes,
-} from '../ILessonRepository.interface'
+} from '../lesson-repository.interface'
 
 export class PrismaLessonRepository implements ILessonRepository {
   find = async (params: FindLessonsParams): Promise<Lesson[]> => {
     return await prisma.lesson.findMany({
-      where: params.where,
+      where: {
+        name: {
+          contains: params.where?.name?.contains,
+          mode: 'insensitive',
+        },
+        moduleId: params.where?.moduleId,
+      },
       orderBy: {
         [params.sortBy ?? 'name']: params.order,
       },

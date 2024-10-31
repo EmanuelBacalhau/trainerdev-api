@@ -11,8 +11,6 @@ export interface Lesson {
 export interface LessonWhereInputs {
   name?: {
     contains?: string
-    equals?: string
-    mode?: 'insensitive' | 'default'
   }
   moduleId?: number
 }
