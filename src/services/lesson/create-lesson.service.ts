@@ -4,6 +4,7 @@ import type {
   ILessonRepository,
   Lesson,
 } from '@/repositories/lesson-repository.interface'
+import type { IModuleRepository } from '@/repositories/module-repository.interface'
 import type { IService } from '../service.interface'
 
 interface IRequest {
@@ -15,9 +16,18 @@ interface IResponse {
 }
 
 export class CreateLessonService implements IService<IRequest, IResponse> {
-  constructor(private readonly lessonRepository: ILessonRepository) {}
+  constructor(
+    private readonly lessonRepository: ILessonRepository,
+    private readonly moduleRepository: IModuleRepository
+  ) {}
 
   async execute({ attributes }: IRequest): Promise<IResponse> {
+    const module = await this.moduleRepository.findById(attributes.moduleId)
+
+    if (!module) {
+      throw new HttpError('Module not found', 404)
+    }
+
     const slug = attributes.name.toLowerCase().replace(' ', '-')
     const lessonWithSlug = await this.lessonRepository.findBySlug(slug)
 

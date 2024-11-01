@@ -4,6 +4,7 @@ import type {
   Lesson,
   UpdateLessonAttributes,
 } from '@/repositories/lesson-repository.interface'
+import type { IModuleRepository } from '@/repositories/module-repository.interface'
 import { removeFile } from '@/utils/remove-file'
 import type { IService } from '../service.interface'
 
@@ -17,13 +18,30 @@ interface IResponse {
 }
 
 export class UpdateLessonService implements IService<IRequest, IResponse> {
-  constructor(private readonly lessonRepository: ILessonRepository) {}
+  constructor(
+    private readonly lessonRepository: ILessonRepository,
+    private readonly moduleRepository: IModuleRepository
+  ) {}
 
   async execute(params: IRequest): Promise<IResponse> {
     const lesson = await this.lessonRepository.findById(params.id)
 
     if (!lesson) {
       throw new HttpError('Lesson not found', 404)
+    }
+
+    if (params.attributes.moduleId) {
+      const module = await this.moduleRepository.findById(
+        params?.attributes.moduleId
+      )
+
+      if (!module) {
+        throw new HttpError('Module not found', 404)
+      }
+    }
+
+    if (!module) {
+      throw new HttpError('Module not found', 404)
     }
 
     if (params.attributes.name) {
