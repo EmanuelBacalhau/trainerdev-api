@@ -14,9 +14,9 @@ export class FindTrackBySlugController implements IController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const query = GetTrackBySlugRequestSchema.parse(req.query)
+      const params = GetTrackBySlugRequestSchema.parse(req.params)
 
-      const track = await this.findTrackBySlugService.execute(query)
+      const track = await this.findTrackBySlugService.execute(params)
 
       res.json(track)
     } catch (error) {
