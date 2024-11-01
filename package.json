@@ -6,17 +6,6 @@
     "start": "node build/src/server.js",
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest run --coverage",
-    "test:unit": "vitest run --dir ./tests/unit",
-    "test:integrations": "vitest run --dir ./tests/integrations",
-    "test:e2e": "vitest run --dir ./tests/end-to-end",
-    "test:create-prisma-environment": "npm link ./prisma/vitest-environment-prisma",
-    "test:install-prisma-environment": "npm link vitest-environment-prisma",
-    "pretest:ui": "run-s test:create-prisma-environment test:install-prisma-environment",
-    "pretest:coverage": "run-s test:create-prisma-environment test:install-prisma-environment",
-    "pretest:integrations": "run-s test:create-prisma-environment test:install-prisma-environment",
-    "pretest:e2e": "run-s test:create-prisma-environment test:install-prisma-environment",
     "prepare": "husky"
   },
   "prisma": {
@@ -33,16 +22,12 @@
     "@types/jsonwebtoken": "^9.0.7",
     "@types/multer": "^1.4.12",
     "@types/node": "^22.7.8",
-    "@vitest/coverage-v8": "^2.1.4",
-    "@vitest/ui": "^2.1.4",
     "git-commit-msg-linter": "^5.0.8",
     "husky": "^9.1.6",
     "npm-run-all": "^4.1.5",
     "prisma": "^5.21.1",
     "tsx": "^4.19.1",
-    "typescript": "^5.6.3",
-    "vite-tsconfig-paths": "^5.0.1",
-    "vitest": "^2.1.4"
+    "typescript": "^5.6.3"
   },
   "dependencies": {
     "@prisma/client": "^5.21.1",
