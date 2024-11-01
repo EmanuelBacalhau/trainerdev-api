@@ -1,7 +1,7 @@
 import type { DeleteUserService } from '@/services/user/delete-user.service'
 import type { NextFunction, Request, Response } from 'express'
 import type { IController } from '../controller.interface'
-import { GetUserIdRequestSchema } from '../schemas/UserRequestSchema'
+import { GetUserIdRequestSchema } from '../schemas/user-request-schema'
 
 export class DeleteUserController implements IController {
   constructor(private readonly deleteUserService: DeleteUserService) {}

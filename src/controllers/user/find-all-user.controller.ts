@@ -1,7 +1,7 @@
 import type { FindAllUserService } from '@/services/user/find-all-user.service'
 import type { NextFunction, Request, Response } from 'express'
 import type { IController } from '../controller.interface'
-import { FindUsersRequestSchema } from '../schemas/UserRequestSchema'
+import { FindUsersRequestSchema } from '../schemas/user-request-schema'
 
 export class FindAllUserController implements IController {
   constructor(private readonly findAllUserService: FindAllUserService) {}

@@ -5,7 +5,7 @@ import type { IController } from '../controller.interface'
 import {
   GetUserIdRequestSchema,
   UpdateUserRequestSchema,
-} from '../schemas/UserRequestSchema'
+} from '../schemas/user-request-schema'
 
 export class UpdateUserController implements IController {
   constructor(private readonly updateUserService: UpdateUserServices) {}

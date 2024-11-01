@@ -1,7 +1,7 @@
 import type { CreateUserService } from '@/services/user/create-user.service'
 import type { NextFunction, Request, Response } from 'express'
 import type { IController } from '../controller.interface'
-import { CreateUserRequestSchema } from '../schemas/UserRequestSchema'
+import { CreateUserRequestSchema } from '../schemas/user-request-schema'
 
 export class CreateUserController implements IController {
   constructor(private readonly createUserService: CreateUserService) {}
