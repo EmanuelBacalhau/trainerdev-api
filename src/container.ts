@@ -1,7 +1,5 @@
 import { AuthController } from './controllers/Auth.controller'
-import { LessonController } from './controllers/Lesson.controller'
 import { MatriculationController } from './controllers/Matriculation.controller'
-import { ModuleController } from './controllers/Module.controller'
 import { makeCreateModuleController } from './controllers/module/factories/make-create-module-controller'
 import { makeDeleteModuleController } from './controllers/module/factories/make-delete-module-controller'
 import { makeFindAllModuleController } from './controllers/module/factories/make-find-all-module-controller'
@@ -21,15 +19,12 @@ import { makeFindAllUserController } from './controllers/user/factories/make-fin
 import { makeFindUserByIdController } from './controllers/user/factories/make-find-user-by-id-controller'
 import { makeGetUserDetailsController } from './controllers/user/factories/make-get-user-details-controller'
 import { makeUpdateUserController } from './controllers/user/factories/make-update-user-controller'
-import { PrismaLessonRepository } from './repositories/prisma/PrismaLesson.repository'
 import { PrismaMatriculationRepository } from './repositories/prisma/PrismaMatriculation.repository'
-import { PrismaModuleRepository } from './repositories/prisma/prisma-module.repository'
+import { PrismaLessonRepository } from './repositories/prisma/prisma-lesson.repository'
 import { PrismaTrackRepository } from './repositories/prisma/prisma-track.repository'
 import { PrismaUserRepository } from './repositories/prisma/prisma-user.repository'
 import { AuthUseCase } from './use-cases/Auth.use-case'
-import { LessonUseCase } from './use-cases/Lesson.use-case'
 import { MatriculationUseCase } from './use-cases/Matriculation.use-case'
-import { ModuleUseCase } from './use-cases/Module.use-case'
 
 // User controllers
 export const createUserController = makeCreateUserController()
@@ -59,12 +54,9 @@ export const findModuleBySlugController = makeFindModuleBySlugController()
 
 const userRepository = new PrismaUserRepository()
 const trackRepository = new PrismaTrackRepository()
-const moduleRepository = new PrismaModuleRepository()
 const lessonRepository = new PrismaLessonRepository()
 const matriculationRepository = new PrismaMatriculationRepository()
 
-const moduleUseCase = new ModuleUseCase(moduleRepository)
-const lessonUseCase = new LessonUseCase(lessonRepository)
 const matriculationUseCase = new MatriculationUseCase(
   matriculationRepository,
   trackRepository,
@@ -75,5 +67,4 @@ const authUseCase = new AuthUseCase(userRepository)
 export const matriculationController = new MatriculationController(
   matriculationUseCase
 )
-export const lessonController = new LessonController(lessonUseCase)
 export const authController = new AuthController(authUseCase)
