@@ -10,7 +10,7 @@ import { generateMatriculationCode } from '@/utils/generate-matriculation-code'
 import type { IService } from '../service.interface'
 
 interface IRequest {
-  attributes: CreateMatriculationAttributes
+  attributes: Omit<CreateMatriculationAttributes, 'serialCode'>
 }
 
 interface IResponse {
