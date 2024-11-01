@@ -1,4 +1,4 @@
-import { PrismaMatriculationRepository } from '@/repositories/prisma/PrismaMatriculation.repository'
+import { PrismaMatriculationRepository } from '@/repositories/prisma/prisma-matriculation.repository'
 import { DeleteMatriculationService } from '../delete-matriculation.service'
 
 export function makeDeleteMatriculationService() {

@@ -2,7 +2,7 @@ import type {
   FindMatriculationResponse,
   IMatriculationRepository,
   MatriculationWhereInputs,
-} from '@/repositories/IMatriculationRepository.interface'
+} from '@/repositories/matriculation-repository.interface'
 import type { IService } from '../service.interface'
 
 interface IRequest {

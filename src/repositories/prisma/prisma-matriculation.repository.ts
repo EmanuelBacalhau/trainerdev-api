@@ -7,7 +7,7 @@ import type {
   Matriculation,
   MatriculationWhereInputs,
   UpdateMatriculationAttributes,
-} from '../IMatriculationRepository.interface'
+} from '../matriculation-repository.interface'
 
 export class PrismaMatriculationRepository implements IMatriculationRepository {
   find = async (

@@ -1,5 +1,5 @@
 import { HttpError } from '@/errors/HttpError'
-import type { IMatriculationRepository } from '@/repositories/IMatriculationRepository.interface'
+import type { IMatriculationRepository } from '@/repositories/matriculation-repository.interface'
 import type { IService } from '../service.interface'
 
 interface IRequest {

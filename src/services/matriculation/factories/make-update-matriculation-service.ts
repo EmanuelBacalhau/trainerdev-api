@@ -1,4 +1,4 @@
-import { PrismaMatriculationRepository } from '@/repositories/prisma/PrismaMatriculation.repository'
+import { PrismaMatriculationRepository } from '@/repositories/prisma/prisma-matriculation.repository'
 import { PrismaTrackRepository } from '@/repositories/prisma/prisma-track.repository'
 import { PrismaUserRepository } from '@/repositories/prisma/prisma-user.repository'
 import { UpdateMatriculationService } from '../update-matriculation.service'

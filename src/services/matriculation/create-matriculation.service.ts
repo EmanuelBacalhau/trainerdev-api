@@ -3,7 +3,7 @@ import type {
   CreateMatriculationAttributes,
   IMatriculationRepository,
   Matriculation,
-} from '@/repositories/IMatriculationRepository.interface'
+} from '@/repositories/matriculation-repository.interface'
 import type { ITrackRepository } from '@/repositories/track-repository.interface'
 import type { IUserRepository } from '@/repositories/user-repository.interface'
 import { generateMatriculationCode } from '@/utils/generate-matriculation-code'

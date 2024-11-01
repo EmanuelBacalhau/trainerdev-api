@@ -1,4 +1,4 @@
-import { PrismaMatriculationRepository } from '@/repositories/prisma/PrismaMatriculation.repository'
+import { PrismaMatriculationRepository } from '@/repositories/prisma/prisma-matriculation.repository'
 import { FindAllMatriculationService } from '../find-all-matriculation.service'
 
 export function makeFindAllMatriculationService() {
