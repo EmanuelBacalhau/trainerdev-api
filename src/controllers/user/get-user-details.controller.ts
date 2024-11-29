@@ -11,7 +11,7 @@ export class GetUserDetailsController implements IController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const user = await this.findUserByIdUseCase.execute({
+      const { user } = await this.findUserByIdUseCase.execute({
         id: req.user.id,
       })
 

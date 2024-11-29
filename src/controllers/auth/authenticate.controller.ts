@@ -13,7 +13,7 @@ export class AuthenticateController implements IController {
   ): Promise<void> {
     try {
       const body = AuthRequestSchema.parse(req.body)
-      const token = await this.authenticateService.execute(body)
+      const { token } = await this.authenticateService.execute(body)
 
       res.status(200).json({ token })
     } catch (error) {
